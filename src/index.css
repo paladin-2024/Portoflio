@@ -85,10 +85,6 @@ body {
   }
 }
 
-/* ─── V2: Hide default cursor — custom cursor takes over ─── */
-*, *::before, *::after {
-  cursor: none !important;
-}
 
 /* ─── V2: Grain overlay ─── */
 body::after {

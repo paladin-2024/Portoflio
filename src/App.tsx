@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from './context/theme-provider';
 import { Navigation } from './components/ui/navigation';
-import { Cursor } from './components/ui/Cursor';
 import { Preloader } from './components/ui/Preloader';
 import { ScrollProgress } from './components/ui/ScrollProgress';
 import { Home } from './pages/Home';
@@ -14,8 +13,7 @@ function App() {
   return (
     <ThemeProvider defaultTheme="light" storageKey="portfolio-theme">
       {!loaded && <Preloader onComplete={() => setLoaded(true)} />}
-      <Cursor />
-      <ScrollProgress />
+<ScrollProgress />
       <Router>
         <div className="min-h-screen bg-background text-foreground">
           <Navigation />
