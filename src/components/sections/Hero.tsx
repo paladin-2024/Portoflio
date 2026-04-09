@@ -32,8 +32,8 @@ const terminalLines = [
   { type: 'output',  text: 'OS:       Ubuntu 24.04.2 LTS (Noble Numbat)' },
   { type: 'output',  text: 'Host:     Kampala, Uganda' },
   { type: 'output',  text: 'Role:     Software Engineer' },
-  { type: 'output',  text: 'Stack:    Node.js · PostgreSQL · React · Docker' },
-  { type: 'output',  text: 'Focus:    Backend · AI/ML · Robotics' },
+  { type: 'output',  text: 'Stack:    React · Java · Flutter · MongoDB · Node.js' },
+  { type: 'output',  text: 'Focus:    Backend · Mobile · AI/ML · Robotics' },
   { type: 'comment', text: '# Available for work · cnzabb@gmail.com' },
 ];
 
