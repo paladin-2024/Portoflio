@@ -42,11 +42,14 @@ export function Hero() {
   const line2Ref = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
+    const isMobile = window.innerWidth < 768;
+    const text1 = isMobile ? 'Software Eng.' : 'Software Engineer';
+    const text2 = isMobile ? 'Backend Dev.' : '& Backend Developer.';
     const t1 = setTimeout(() => {
-      if (line1Ref.current) scrambleText(line1Ref.current, 'Software Engineer', 1.2);
+      if (line1Ref.current) scrambleText(line1Ref.current, text1, 1.2);
     }, 1800);
     const t2 = setTimeout(() => {
-      if (line2Ref.current) scrambleText(line2Ref.current, '& Backend Developer.', 1.4);
+      if (line2Ref.current) scrambleText(line2Ref.current, text2, 1.4);
     }, 2100);
     return () => { clearTimeout(t1); clearTimeout(t2); };
   }, []);
@@ -75,19 +78,30 @@ export function Hero() {
           </span>
         </motion.div>
 
-        {/* Available badge */}
-        <motion.div
+        {/* Available badge — WhatsApp link */}
+        <motion.a
+          href="https://wa.me/256767579099?text=Hi%20Caleb%2C%20I%20found%20your%20portfolio%20and%20I%27d%20like%20to%20work%20with%20you."
+          target="_blank"
+          rel="noopener noreferrer"
           initial={{ opacity: 0, y: -6 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.4, duration: 0.5 }}
           className="available-badge"
+          style={{
+            fontSize: '11px',
+            fontWeight: 800,
+            padding: '8px 16px',
+            letterSpacing: '0.12em',
+            gap: '8px',
+            cursor: 'pointer',
+          }}
         >
-          <span className="relative flex h-1.5 w-1.5 shrink-0">
+          <span className="relative flex h-2.5 w-2.5 shrink-0">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white/60 opacity-75" />
-            <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-white" />
+            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-white" />
           </span>
           Available for Work
-        </motion.div>
+        </motion.a>
       </div>
 
       {/* ── Main hero grid ────────────────────────────────── */}
@@ -102,10 +116,12 @@ export function Hero() {
             style={{ fontSize: 'clamp(3.8rem, 11vw, 10.5rem)' }}
           >
             <span ref={line1Ref} className="block" style={{ whiteSpace: 'nowrap' }}>
-              {'Software Engineer'.split('').map(() => '█').join('')}
+              <span className="md:hidden">{'Software Eng.'.split('').map(() => '█').join('')}</span>
+              <span className="hidden md:inline">{'Software Engineer'.split('').map(() => '█').join('')}</span>
             </span>
             <span ref={line2Ref} className="block" style={{ whiteSpace: 'nowrap' }}>
-              {'& Backend Developer.'.split('').map(() => '█').join('')}
+              <span className="md:hidden">{'Backend Dev.'.split('').map(() => '█').join('')}</span>
+              <span className="hidden md:inline">{'& Backend Developer.'.split('').map(() => '█').join('')}</span>
             </span>
           </h1>
         </div>

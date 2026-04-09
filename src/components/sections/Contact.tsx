@@ -15,10 +15,13 @@ export function Contact() {
     e.preventDefault();
     setStatus('sending');
     try {
-      const res = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
+      const res = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          access_key: '63818a6b-bf90-452e-8d76-9018b63354e0',
+          ...formData,
+        }),
       });
       if (res.ok) {
         setStatus('sent');

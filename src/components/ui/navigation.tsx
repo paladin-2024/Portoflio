@@ -62,7 +62,7 @@ export function Navigation() {
             <a
               href="#hero"
               onClick={(e) => { e.preventDefault(); scrollToSection('#hero'); }}
-              className="font-syne text-xl font-extrabold tracking-tight text-foreground hover:text-accent transition-colors duration-200"
+              className="font-syne text-3xl font-black tracking-tight text-foreground hover:text-accent transition-colors duration-200"
             >
               N<span className="text-accent">.</span>
             </a>
