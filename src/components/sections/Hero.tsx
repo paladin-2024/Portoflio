@@ -44,7 +44,7 @@ export function Hero() {
   useEffect(() => {
     const isMobile = window.innerWidth < 768;
     const text1 = isMobile ? 'Software Eng.' : 'Software Engineer';
-    const text2 = isMobile ? 'Backend Dev.' : '& Backend Developer.';
+    const text2 = isMobile ? '& Backend Dev.' : '& Backend Developer.';
     const t1 = setTimeout(() => {
       if (line1Ref.current) scrambleText(line1Ref.current, text1, 1.2);
     }, 1800);
@@ -120,7 +120,7 @@ export function Hero() {
               <span className="hidden md:inline">{'Software Engineer'.split('').map(() => '█').join('')}</span>
             </span>
             <span ref={line2Ref} className="block" style={{ whiteSpace: 'nowrap' }}>
-              <span className="md:hidden">{'Backend Dev.'.split('').map(() => '█').join('')}</span>
+              <span className="md:hidden">{'& Backend Dev.'.split('').map(() => '█').join('')}</span>
               <span className="hidden md:inline">{'& Backend Developer.'.split('').map(() => '█').join('')}</span>
             </span>
           </h1>
