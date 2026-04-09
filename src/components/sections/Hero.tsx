@@ -45,6 +45,9 @@ export function Hero() {
     const isMobile = window.innerWidth < 768;
     const text1 = isMobile ? 'Software Eng.' : 'Software Engineer';
     const text2 = isMobile ? '& Backend Dev.' : '& Backend Developer.';
+    // Set placeholder chars to match final text length so layout doesn't jump
+    if (line1Ref.current) line1Ref.current.textContent = text1.split('').map(() => '█').join('');
+    if (line2Ref.current) line2Ref.current.textContent = text2.split('').map(() => '█').join('');
     const t1 = setTimeout(() => {
       if (line1Ref.current) scrambleText(line1Ref.current, text1, 1.2);
     }, 1800);
@@ -116,12 +119,10 @@ export function Hero() {
             style={{ fontSize: 'clamp(3.8rem, 11vw, 10.5rem)' }}
           >
             <span ref={line1Ref} className="block" style={{ whiteSpace: 'nowrap' }}>
-              <span className="md:hidden">{'Software Eng.'.split('').map(() => '█').join('')}</span>
-              <span className="hidden md:inline">{'Software Engineer'.split('').map(() => '█').join('')}</span>
+              {'Software Engineer'.split('').map(() => '█').join('')}
             </span>
             <span ref={line2Ref} className="block" style={{ whiteSpace: 'nowrap' }}>
-              <span className="md:hidden">{'& Backend Dev.'.split('').map(() => '█').join('')}</span>
-              <span className="hidden md:inline">{'& Backend Developer.'.split('').map(() => '█').join('')}</span>
+              {'& Backend Developer.'.split('').map(() => '█').join('')}
             </span>
           </h1>
         </div>
