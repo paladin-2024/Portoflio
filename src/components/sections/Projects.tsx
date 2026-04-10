@@ -19,19 +19,20 @@ const projects = [
     url: 'https://paladincar.netlify.app/',
   },
   {
-    title: 'SOHAM',
-    description: 'Smile of Hope African Ministries. Community outreach, programs, and donation platform.',
-    tags: ['React', 'TailwindCSS'],
-    image: '/assets/projects/sonam.png',
-    url: 'https://soham-five.vercel.app/',
-  },
-  {
     title: 'PromptPal',
     description: 'Discover & Share AI-Powered Prompts. Open-source prompt community for developers.',
     tags: ['React', 'PWA', 'GSAP','MongoDB', 'ShadCN'],
     image: '/assets/projects/promptpal.png',
     url: 'https://prompt-pal-amber.vercel.app/',
   },
+  {
+    title: 'SOHAM',
+    description: 'Smile of Hope African Ministries. Community outreach, programs, and donation platform.',
+    tags: ['React', 'TailwindCSS'],
+    image: '/assets/projects/sonam.png',
+    url: 'https://soham-five.vercel.app/',
+  },
+
 ];
 
 function ProjectCard({ project, index }: { project: typeof projects[0]; index: number }) {
