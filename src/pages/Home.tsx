@@ -6,6 +6,7 @@ import { About } from '../components/sections/About';
 import { Skills } from '../components/sections/Skills';
 import { Process } from '../components/sections/Process';
 import { Testimonials } from '../components/sections/Testimonials';
+import { Pricing } from '../components/sections/Pricing';
 import { Contact } from '../components/sections/Contact';
 import { Footer } from '../components/ui/Footer';
 import { Marquee } from '../components/ui/Marquee';
@@ -41,6 +42,7 @@ export function Home() {
       <Skills />
       <Process />
       <Testimonials />
+      <Pricing />
       <Contact />
       <Footer />
     </main>
