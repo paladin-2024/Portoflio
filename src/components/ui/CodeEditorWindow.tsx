@@ -1,6 +1,5 @@
 /* ─── Monochrome Code Editor Window ──────────────────────────────────
-   Styled like a VS Code / IDE window but strict B&W — no syntax colours.
-   Contrast is done through weight, opacity, and style (bold/italic).
+   Java Spring Boot REST controller — strict B&W colour scheme.
    ─────────────────────────────────────────────────────────────────── */
 
 const kw  = (t: string) => <span style={{ color: '#F0EDE7', fontWeight: 700 }}>{t}</span>;
@@ -9,38 +8,44 @@ const str = (t: string) => <span style={{ color: 'rgba(240,237,231,0.65)', fontS
 const cmt = (t: string) => <span style={{ color: 'rgba(240,237,231,0.28)', fontStyle: 'italic' }}>{t}</span>;
 const fn  = (t: string) => <span style={{ color: '#F0EDE7', fontWeight: 600 }}>{t}</span>;
 const pl  = (t: string) => <span style={{ color: 'rgba(240,237,231,0.6)' }}>{t}</span>;
-const num = (t: string) => <span style={{ color: 'rgba(240,237,231,0.55)' }}>{t}</span>;
+const an  = (t: string) => <span style={{ color: 'rgba(240,237,231,0.55)', fontStyle: 'italic' }}>{t}</span>;
 
 type Line = React.ReactNode;
 
 const lines: Line[] = [
-  <>{cmt('// auth.middleware.ts')}</>,
-  <>{kw('import')} {pl('{')} {ty('Request')}{pl(',')} {ty('Response')}{pl(',')} {ty('NextFunction')} {pl('}')} {kw('from')} {str("'express'")}{pl(';')}</>,
-  <>{kw('import')} {ty('jwt')} {kw('from')} {str("'jsonwebtoken'")}{pl(';')}</>,
-  <>{kw('import')} {pl('{')} {ty('db')} {pl('}')} {kw('from')} {str("'../db/postgres'")}{pl(';')}</>,
+  <>{cmt('// UserController.java')}</>,
+  <>{kw('package')} {ty('com.nzabanita.api.controller')}{pl(';')}</>,
   <></>,
-  <>{kw('export')} {kw('async')} {kw('function')} {fn('requireAuth')}{pl('(')}</>,
-  <>{pl('  ')}{ty('req')}{pl(': ')}{ty('Request')}{pl(',')}</>,
-  <>{pl('  ')}{ty('res')}{pl(': ')}{ty('Response')}{pl(',')}</>,
-  <>{pl('  ')}{ty('next')}{pl(': ')}{ty('NextFunction')}</>,
-  <>{pl(') {')} {cmt('// JWT guard middleware')}</>,
-  <>{pl('  ')}{kw('const')} {ty('token')} {pl('=')} {ty('req')}{pl('.')}{fn('headers')}{pl('.')}{fn('authorization')}{pl('?.')}{fn('split')}{pl('(')}{str("' '")}){pl('[')}{num('1')}{pl('];')}</>,
+  <>{kw('import')} {ty('org.springframework.web.bind.annotation.*')}{pl(';')}</>,
+  <>{kw('import')} {ty('org.springframework.http.ResponseEntity')}{pl(';')}</>,
+  <>{kw('import')} {ty('lombok.RequiredArgsConstructor')}{pl(';')}</>,
   <></>,
-  <>{pl('  ')}{kw('if')} {pl('(!')}{ty('token')}{pl(') {')} </>,
-  <>{pl('    ')}{kw('return')} {ty('res')}{pl('.')}{fn('status')}{pl('(')}{num('401')}{pl(').')}{fn('json')}{pl('({')} {ty('error')}{pl(': ')}{str("'Unauthorized'")} {pl('});')}</>,
-  <>{pl('  }')}</>,
+  <>{an('@RestController')}</>,
+  <>{an('@RequestMapping')}{pl('(')}{str('"/api/v1/users"')}{pl(')')}</>,
+  <>{an('@RequiredArgsConstructor')}</>,
+  <>{kw('public class')} {ty('UserController')} {pl('{')}</>,
   <></>,
-  <>{pl('  ')}{kw('try')} {pl('{')}</>,
-  <>{pl('    ')}{kw('const')} {ty('payload')} {pl('=')} {ty('jwt')}{pl('.')}{fn('verify')}{pl('(')}{ty('token')}{pl(', ')}{ty('process')}{pl('.')}{fn('env')}{pl('.')}{ty('JWT_SECRET')}{pl('!);')}</>,
-  <>{pl('    ')}{kw('const')} {ty('user')} {pl('=')} {kw('await')} {ty('db')}{pl('.')}{fn('query')}{pl('(')}</>,
-  <>{pl('      ')}{str("'SELECT id, role FROM users WHERE id = $1'")}{pl(',')}</>,
-  <>{pl('      ')}{pl('[')}{ty('payload')}{pl('.')}{ty('sub')}{pl(']')}</>,
-  <>{pl('    );')}</>,
-  <>{pl('    ')}{ty('req')}{pl('.')}{ty('user')} {pl('=')} {ty('user')}{pl('.')}{ty('rows')}{pl('[')}{num('0')}{pl('];')}</>,
-  <>{pl('    ')}{fn('next')}{pl('();')}</>,
-  <>{pl('  }')} {kw('catch')} {pl('{')}</>,
-  <>{pl('    ')}{ty('res')}{pl('.')}{fn('status')}{pl('(')}{num('403')}{pl(').')}{fn('json')}{pl('({')} {ty('error')}{pl(': ')}{str("'Token expired'")} {pl('});')}</>,
-  <>{pl('  }')}</>,
+  <>{pl('    ')}{kw('private final')} {ty('UserService')} {ty('userService')}{pl(';')}</>,
+  <>{pl('    ')}{kw('private final')} {ty('JwtService')} {ty('jwtService')}{pl(';')}</>,
+  <></>,
+  <>{pl('    ')}{an('@PostMapping')}{pl('(')}{str('"/auth/login"')}{pl(')')}</>,
+  <>{pl('    ')}{kw('public')} {ty('ResponseEntity')}{pl('<')}{ty('AuthResponse')}{pl('>')} {fn('login')}{pl('(')}</>,
+  <>{pl('            ')}{an('@RequestBody')} {ty('LoginRequest')} {ty('request')}{pl(') {')}</>,
+  <>{pl('        ')}{ty('User')} {ty('user')} {pl('=')} {ty('userService')}{pl('.')}{fn('authenticate')}{pl('(')}</>,
+  <>{pl('            ')}{ty('request')}{pl('.')}{fn('email')}{pl('(), ')}{ty('request')}{pl('.')}{fn('password')}{pl('()')}</>,
+  <>{pl('        );')}</>,
+  <>{pl('        ')}{ty('String')} {ty('token')} {pl('=')} {ty('jwtService')}{pl('.')}{fn('generateToken')}{pl('(')}{ty('user')}{pl(');')}</>,
+  <>{pl('        ')}{kw('return')} {ty('ResponseEntity')}{pl('.')}{fn('ok')}{pl('(')}</>,
+  <>{pl('            ')}{kw('new')} {fn('AuthResponse')}{pl('(')}{ty('token')}{pl(', ')}{ty('user')}{pl('.')}{fn('getRole')}{pl('())')}</>,
+  <>{pl('        );')}</>,
+  <>{pl('    }')}</>,
+  <></>,
+  <>{pl('    ')}{an('@GetMapping')}{pl('(')}{str('"/{id}"')}{pl(')')}</>,
+  <>{pl('    ')}{an('@PreAuthorize')}{pl('(')}{str('"hasRole(\'ADMIN\')"')}{pl(')')}</>,
+  <>{pl('    ')}{kw('public')} {ty('ResponseEntity')}{pl('<')}{ty('UserDto')}{pl('>')} {fn('getById')}{pl('(')}</>,
+  <>{pl('            ')}{an('@PathVariable')} {ty('Long')} {ty('id')}{pl(') {')}</>,
+  <>{pl('        ')}{kw('return')} {ty('ResponseEntity')}{pl('.')}{fn('ok')}{pl('(')}{ty('userService')}{pl('.')}{fn('findById')}{pl('(')}{ty('id')}{pl('));')}</>,
+  <>{pl('    }')}</>,
   <>{pl('}')}</>,
 ];
 
@@ -70,22 +75,16 @@ export function CodeEditorWindow() {
           flexShrink: 0,
         }}
       >
-        {/* Traffic-light dots — monochrome */}
         {['rgba(240,237,231,0.18)', 'rgba(240,237,231,0.12)', 'rgba(240,237,231,0.08)'].map((bg, i) => (
           <span
             key={i}
             style={{
-              width: 11,
-              height: 11,
-              borderRadius: '50%',
-              background: bg,
-              border: '1px solid rgba(240,237,231,0.1)',
-              display: 'inline-block',
-              flexShrink: 0,
+              width: 11, height: 11, borderRadius: '50%',
+              background: bg, border: '1px solid rgba(240,237,231,0.1)',
+              display: 'inline-block', flexShrink: 0,
             }}
           />
         ))}
-        {/* Tab bar */}
         <div style={{ flex: 1, display: 'flex', alignItems: 'center', marginLeft: 10, gap: 2 }}>
           <span
             style={{
@@ -97,53 +96,34 @@ export function CodeEditorWindow() {
               fontSize: '11px',
             }}
           >
-            auth.middleware.ts
+            UserController.java
           </span>
-          <span
-            style={{
-              padding: '2px 12px',
-              color: 'rgba(240,237,231,0.2)',
-              fontSize: '11px',
-            }}
-          >
-            db/postgres.ts
+          <span style={{ padding: '2px 12px', color: 'rgba(240,237,231,0.2)', fontSize: '11px' }}>
+            JwtService.java
           </span>
         </div>
-        {/* Minimap indicator */}
         <span style={{ color: 'rgba(240,237,231,0.2)', fontSize: '10px', letterSpacing: '0.05em' }}>
-          TS
+          Java
         </span>
       </div>
 
       {/* ── Editor body ───────────────────────────────── */}
       <div style={{ display: 'flex', flex: 1, overflow: 'auto' }}>
-        {/* Line numbers */}
         <div
           style={{
-            padding: '16px 0',
-            minWidth: 40,
-            textAlign: 'right',
-            paddingRight: 14,
-            paddingLeft: 8,
-            color: 'rgba(240,237,231,0.18)',
-            userSelect: 'none',
-            borderRight: '1px solid rgba(240,237,231,0.05)',
-            flexShrink: 0,
+            padding: '16px 0', minWidth: 40, textAlign: 'right',
+            paddingRight: 14, paddingLeft: 8,
+            color: 'rgba(240,237,231,0.18)', userSelect: 'none',
+            borderRight: '1px solid rgba(240,237,231,0.05)', flexShrink: 0,
           }}
         >
           {lines.map((_, i) => (
-            <div key={i} style={{ height: '1.65em' }}>
-              {i + 1}
-            </div>
+            <div key={i} style={{ height: '1.65em' }}>{i + 1}</div>
           ))}
         </div>
-
-        {/* Code */}
         <div style={{ padding: '16px 20px', flex: 1, overflowX: 'auto', whiteSpace: 'nowrap' }}>
           {lines.map((line, i) => (
-            <div key={i} style={{ height: '1.65em' }}>
-              {line}
-            </div>
+            <div key={i} style={{ height: '1.65em' }}>{line}</div>
           ))}
         </div>
       </div>
@@ -151,18 +131,15 @@ export function CodeEditorWindow() {
       {/* ── Status bar ────────────────────────────────── */}
       <div
         style={{
-          background: '#E95420',
-          padding: '2px 12px',
-          display: 'flex',
-          justifyContent: 'space-between',
-          flexShrink: 0,
+          background: '#E95420', padding: '2px 12px',
+          display: 'flex', justifyContent: 'space-between', flexShrink: 0,
         }}
       >
         <span style={{ color: '#fff', fontSize: '10px', fontFamily: '"JetBrains Mono", monospace', letterSpacing: '0.05em' }}>
-          main ⎇ — TypeScript
+          main ⎇ — Java · Spring Boot
         </span>
         <span style={{ color: 'rgba(255,255,255,0.7)', fontSize: '10px', fontFamily: '"JetBrains Mono", monospace' }}>
-          Ln 27, Col 1
+          Ln 18, Col 1
         </span>
       </div>
     </div>

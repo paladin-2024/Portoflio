@@ -14,7 +14,7 @@ const categories = [
   },
   {
     label: 'Backend',
-    techs: ['Node.js', 'Express', 'Spring Boot', 'Django', 'Python', 'MongoDB', 'GraphQL', 'REST APIs'],
+    techs: ['Node.js', 'Express', 'Java', 'Python', 'MongoDB', 'REST APIs'],
   },
   {
     label: 'Robotics & Hardware',
