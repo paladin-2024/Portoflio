@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ExternalLink, X } from 'lucide-react';
 import { easeOut } from '../../lib/animations';
@@ -93,6 +93,12 @@ export function Projects() {
     document.body.style.overflow = '';
     lenis.start();
   }
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') closeModal(); };
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, []);
 
   function onMouseDown(e: React.MouseEvent) {
     if (!stripRef.current) return;

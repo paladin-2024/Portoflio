@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://nzabanita.vercel.app/sitemap.xml

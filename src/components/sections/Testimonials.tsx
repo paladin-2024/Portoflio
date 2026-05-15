@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { fadeUp, scaleIn, stagger } from '../../lib/animations';
 
 const stats = [
-  { value: '10+', label: 'Projects\nDelivered' },
+  { value: '15+', label: 'Projects\nDelivered' },
   { value: '5+',  label: 'Happy\nClients'    },
   { value: '24h', label: 'Response\nTime'    },
   { value: '3+',  label: 'Years\nExperience' },
