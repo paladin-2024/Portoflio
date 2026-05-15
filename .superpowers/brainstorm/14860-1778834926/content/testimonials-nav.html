@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Testimonials + Nav</title>
+<style>
+* { box-sizing:border-box; margin:0; padding:0; }
+body { background:#0a0908; color:#F0EDE7; font-family:'JetBrains Mono',monospace; font-size:13px; }
+
+.section-header { padding:16px 24px; border-bottom:1px solid rgba(240,237,231,0.08); }
+.section-header h2 { font-size:11px; letter-spacing:0.25em; text-transform:uppercase; color:#E95420; margin-bottom:2px; }
+.section-header p { font-size:10px; color:rgba(240,237,231,0.35); }
+
+/* ─── TESTIMONIALS ─── */
+.t-options { display:grid; grid-template-columns:1fr 1fr; gap:1px; background:rgba(240,237,231,0.08); }
+@media(max-width:640px){ .t-options { grid-template-columns:1fr; } }
+.t-opt { background:#0a0908; padding:18px; cursor:pointer; transition:background 0.2s; }
+.t-opt:hover { background:#0f0d0a; }
+.t-opt.selected { outline:2px solid #E95420; }
+.opt-label { font-size:8px; letter-spacing:0.25em; text-transform:uppercase; color:#E95420; margin-bottom:8px; }
+.opt-title { font-size:13px; font-weight:700; color:#F0EDE7; margin-bottom:8px; letter-spacing:-0.02em; }
+
+/* Mockup: card with avatar */
+.t-card { background:#111; border:1px solid rgba(240,237,231,0.07); padding:14px; margin-bottom:6px; }
+.t-card-top { display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:10px; }
+.t-avatar { width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; color:#fff; flex-shrink:0; }
+.t-stars { display:flex; gap:2px; font-size:9px; color:#E95420; }
+.t-quote { font-size:10px; color:rgba(240,237,231,0.6); line-height:1.7; margin-bottom:10px; font-style:italic; }
+.t-name { font-size:11px; font-weight:700; color:#F0EDE7; }
+.t-role { font-size:8px; color:#E95420; letter-spacing:0.15em; text-transform:uppercase; margin-top:2px; }
+.t-company { font-size:8px; color:rgba(240,237,231,0.3); margin-top:1px; }
+
+/* Mockup: metric cards */
+.metric-grid { display:grid; grid-template-columns:1fr 1fr; gap:6px; margin-bottom:6px; }
+.metric-card { background:#111; border:1px solid rgba(240,237,231,0.07); padding:10px; }
+.metric-val { font-size:22px; font-weight:800; color:#E95420; letter-spacing:-0.04em; }
+.metric-label { font-size:8px; color:rgba(240,237,231,0.4); text-transform:uppercase; letter-spacing:0.15em; margin-top:2px; }
+
+/* Mockup: simple quote -->
+.big-quote { padding:16px; border-left:2px solid #E95420; background:#0f0d0a; margin-bottom:6px; }
+.bq-text { font-size:11px; color:rgba(240,237,231,0.65); line-height:1.7; font-style:italic; margin-bottom:8px; }
+.bq-attr { font-size:9px; }
+.bq-name { color:#F0EDE7; font-weight:700; }
+.bq-role { color:rgba(240,237,231,0.35); }
+
+/* ─── NAV ─── */
+.nav-section { padding:18px 24px; border-top:1px solid rgba(240,237,231,0.08); margin-top:1px; background:rgba(240,237,231,0.02); }
+.nav-section h3 { font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color:#E95420; margin-bottom:12px; }
+.nav-mock { display:flex; align-items:center; justify-content:space-between; padding:14px 20px; background:#0f0d0a; border:1px solid rgba(240,237,231,0.07); }
+.nav-logo { font-size:11px; font-weight:700; letter-spacing:0.15em; color:#F0EDE7; }
+.nav-links { display:flex; gap:20px; }
+.nav-link { font-size:8px; letter-spacing:0.2em; text-transform:uppercase; color:rgba(240,237,231,0.4); cursor:pointer; }
+.nav-link:hover { color:#E95420; }
+.nav-right { display:flex; align-items:center; gap:12px; }
+.nav-theme { width:28px; height:16px; background:rgba(240,237,231,0.1); border-radius:8px; position:relative; cursor:pointer; border:1px solid rgba(240,237,231,0.15); }
+.nav-theme-dot { width:10px; height:10px; background:#E95420; border-radius:50%; position:absolute; top:2px; right:2px; transition:right 0.2s; }
+.nav-cta { font-size:8px; padding:6px 14px; border:1px solid #E95420; background:#E95420; color:#fff; letter-spacing:0.15em; text-transform:uppercase; cursor:pointer; }
+
+/* Footer */
+.footer { padding:14px 24px; border-top:1px solid rgba(240,237,231,0.08); display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+.pick-btn { padding:7px 14px; font-size:8px; letter-spacing:0.15em; text-transform:uppercase; border:1px solid rgba(240,237,231,0.12); background:transparent; color:rgba(240,237,231,0.45); cursor:pointer; transition:all 0.2s; font-family:monospace; }
+.pick-btn:hover,.pick-btn.active { border-color:#E95420; color:#E95420; }
+.pick-btn.rec { border-color:#E95420; background:#E95420; color:#fff; }
+.divider { width:1px; height:20px; background:rgba(240,237,231,0.1); margin:0 4px; }
+.note { font-size:9px; color:rgba(240,237,231,0.25); }
+</style>
+</head>
+<body>
+
+<!-- TESTIMONIALS -->
+<div class="section-header">
+  <h2>Testimonials Design</h2>
+  <p>Currently: anonymous "Client / Team Lead / Founder" — zero trust value. Pick a direction.</p>
+</div>
+
+<div class="t-options">
+
+  <!-- Option A: Real names + avatar + stars -->
+  <div class="t-opt" id="ta" onclick="selT('a')">
+    <div class="opt-label">Option A ⭐ Recommended</div>
+    <div class="opt-title">Named Cards — Avatar Initial + Stars</div>
+    <p style="font-size:9px;color:rgba(240,237,231,0.4);margin-bottom:10px">Real names, company, colored avatar, 5-star rating. Maximum trust signal. Needs you to provide real names.</p>
+    <div class="t-card">
+      <div class="t-card-top">
+        <div style="display:flex;align-items:center;gap:8px">
+          <div class="t-avatar" style="background:#E95420">J</div>
+          <div>
+            <div class="t-name">Jonathan A.</div>
+            <div class="t-role">Jonglei Fish Hub</div>
+          </div>
+        </div>
+        <div class="t-stars">★★★★★</div>
+      </div>
+      <div class="t-quote">"Caleb built our entire platform from scratch in record time. Clean architecture, great communication. Not just a developer — a problem solver."</div>
+    </div>
+    <div class="t-card">
+      <div class="t-card-top">
+        <div style="display:flex;align-items:center;gap:8px">
+          <div class="t-avatar" style="background:#2a6099">M</div>
+          <div>
+            <div class="t-name">Michael O.</div>
+            <div class="t-role">Cyberteks-IT · Team Lead</div>
+          </div>
+        </div>
+        <div class="t-stars">★★★★★</div>
+      </div>
+      <div class="t-quote">"Working with Nzabanita on Cyberteks was one of the best technical decisions we made. The site performs brilliantly."</div>
+    </div>
+  </div>
+
+  <!-- Option B: Metric social proof -->
+  <div class="t-opt" id="tb" onclick="selT('b')">
+    <div class="opt-label">Option B</div>
+    <div class="opt-title">Outcome Metrics — Let the Numbers Talk</div>
+    <p style="font-size:9px;color:rgba(240,237,231,0.4);margin-bottom:10px">If real names aren't available, lead with project outcomes instead. Numbers don't need names. Honest and credible.</p>
+    <div class="metric-grid">
+      <div class="metric-card"><div class="metric-val">10+</div><div class="metric-label">Projects shipped to production</div></div>
+      <div class="metric-card"><div class="metric-val">3×</div><div class="metric-label">Avg traffic increase for clients</div></div>
+      <div class="metric-card"><div class="metric-val">5+</div><div class="metric-label">Happy clients across East Africa</div></div>
+      <div class="metric-card"><div class="metric-val">24h</div><div class="metric-label">Response time guaranteed</div></div>
+    </div>
+    <div class="big-quote">
+      <div class="bq-text">"He doesn't just write code — he thinks in systems. PromptPal's backend is rock-solid."</div>
+      <div class="bq-attr"><span class="bq-name">Founder</span> · <span class="bq-role">PromptPal</span></div>
+    </div>
+  </div>
+
+  <!-- Option C: Mix both -->
+  <div class="t-opt" id="tc" onclick="selT('c')" style="grid-column:span 2">
+    <div class="opt-label">Option C — Best of Both</div>
+    <div class="opt-title">Metrics Bar at Top + Named Quote Cards Below</div>
+    <p style="font-size:9px;color:rgba(240,237,231,0.4);margin-bottom:10px">Numbers in a stat strip above the quote cards. Strong one-two punch — data then human voice.</p>
+    <div style="display:flex;gap:1px;background:rgba(240,237,231,0.08);margin-bottom:8px">
+      <div class="metric-card" style="flex:1;background:#0f0d0a"><div class="metric-val">10+</div><div class="metric-label">Projects</div></div>
+      <div class="metric-card" style="flex:1;background:#0f0d0a"><div class="metric-val">5+</div><div class="metric-label">Clients</div></div>
+      <div class="metric-card" style="flex:1;background:#0f0d0a"><div class="metric-val">24h</div><div class="metric-label">Response</div></div>
+      <div class="metric-card" style="flex:1;background:#0f0d0a"><div class="metric-val">3+</div><div class="metric-label">Yrs Exp</div></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:rgba(240,237,231,0.08)">
+      <div class="t-card" style="margin:0">
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px">
+          <div class="t-avatar" style="background:#E95420;width:24px;height:24px;font-size:10px">J</div>
+          <div><div class="t-name" style="font-size:10px">Jonathan A.</div><div class="t-role">Jonglei Fish Hub</div></div>
+        </div>
+        <div class="t-quote" style="font-size:9px">"Caleb built our platform from scratch in record time. A problem solver, not just a developer."</div>
+      </div>
+      <div class="t-card" style="margin:0">
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px">
+          <div class="t-avatar" style="background:#2a6099;width:24px;height:24px;font-size:10px">M</div>
+          <div><div class="t-name" style="font-size:10px">Michael O.</div><div class="t-role">Cyberteks-IT</div></div>
+        </div>
+        <div class="t-quote" style="font-size:9px">"One of the best technical decisions we made. Brought depth and ideas we hadn't considered."</div>
+      </div>
+      <div class="t-card" style="margin:0">
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px">
+          <div class="t-avatar" style="background:#1a6b3c;width:24px;height:24px;font-size:10px">F</div>
+          <div><div class="t-name" style="font-size:10px">Founder</div><div class="t-role">PromptPal</div></div>
+        </div>
+        <div class="t-quote" style="font-size:9px">"Doesn't just write code — thinks in systems. The backend is rock-solid."</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- NAV -->
+<div class="nav-section">
+  <h3>Navigation — Dark Default + Theme Toggle</h3>
+  <p style="font-size:9px;color:rgba(240,237,231,0.4);margin-bottom:12px">Dark mode default. Toggle pill switches to light. "Hire Me" CTA always visible. Nav collapses to hamburger on mobile.</p>
+  <div class="nav-mock">
+    <div class="nav-logo">NC<span style="color:#E95420">_</span></div>
+    <div class="nav-links">
+      <div class="nav-link">Work</div>
+      <div class="nav-link">Services</div>
+      <div class="nav-link">About</div>
+      <div class="nav-link">Contact</div>
+    </div>
+    <div class="nav-right">
+      <div class="nav-theme" title="Theme toggle">
+        <div class="nav-theme-dot"></div>
+      </div>
+      <div class="nav-cta">Hire Me</div>
+    </div>
+  </div>
+  <p style="font-size:9px;color:rgba(240,237,231,0.3);margin-top:8px">+ Floating "Book a Call" button bottom-right (links to WhatsApp) · disappears when Contact section is visible</p>
+</div>
+
+<div class="footer">
+  <span class="note">Testimonials:</span>
+  <button class="pick-btn rec" id="btn-ta" onclick="selT('a')">A — Named Cards</button>
+  <button class="pick-btn" id="btn-tb" onclick="selT('b')">B — Metrics Only</button>
+  <button class="pick-btn" id="btn-tc" onclick="selT('c')">C — Metrics + Cards</button>
+  <div class="divider"></div>
+  <span class="note">Nav design above is fixed — confirm or flag any changes in terminal.</span>
+</div>
+
+<script>
+function selT(id){
+  ['a','b','c'].forEach(o=>{
+    const el=document.getElementById('t'+o);
+    if(el)el.classList.remove('selected');
+    const btn=document.getElementById('btn-t'+o);
+    if(btn){btn.classList.remove('active','rec');}
+  });
+  const el=document.getElementById('t'+id);
+  if(el)el.classList.add('selected');
+  const btn=document.getElementById('btn-t'+id);
+  if(btn)btn.classList.add('active');
+  try{window.parent.postMessage({type:'choice',choice:'testimonial-'+id},'*');}catch(e){}
+}
+</script>
+</body>
+</html>

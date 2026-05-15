@@ -1,22 +1,22 @@
-@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
 
 @import 'tailwindcss';
 
 :root {
-  --background: #F4F1EC;
+  --background: #ffffff;
   --foreground: #0f0d0a;
-  --muted: #EAE7E1;
+  --muted: #f5f5f5;
   --muted-foreground: #6b6660;
-  --border: #D4D0C9;
-  --input: #D4D0C9;
+  --border: #e8e8e8;
+  --input: #e8e8e8;
   --ring: #0f0d0a;
   --primary: #0f0d0a;
-  --primary-foreground: #F4F1EC;
-  --secondary: #EAE7E1;
+  --primary-foreground: #ffffff;
+  --secondary: #f5f5f5;
   --secondary-foreground: #0f0d0a;
   --accent: #E95420;
   --accent-foreground: #ffffff;
-  --card: #EEE9E3;
+  --card: #f5f5f5;
   --card-foreground: #0f0d0a;
   --destructive: #ef4444;
   --destructive-foreground: #ffffff;
@@ -54,7 +54,7 @@ html {
 body {
   background-color: var(--background);
   color: var(--foreground);
-  font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
@@ -313,4 +313,29 @@ body::before {
 /* ─── V2: Ubuntu orange glow on hover ─── */
 .ubuntu-glow:hover {
   box-shadow: 0 0 0 1px #E95420, 0 0 24px rgba(233, 84, 32, 0.15);
+}
+
+/* ─── Floating CTA pulse animation ─── */
+@keyframes ctaPulse {
+  0%   { box-shadow: 0 0 0 0 rgba(233, 84, 32, 0.5); }
+  70%  { box-shadow: 0 0 0 10px rgba(233, 84, 32, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(233, 84, 32, 0); }
+}
+
+/* ─── Side nav dot tooltip ─── */
+.nav-dot-label {
+  position: absolute;
+  left: calc(100% + 12px);
+  white-space: nowrap;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+.nav-dot-btn:hover .nav-dot-label {
+  opacity: 1;
 }

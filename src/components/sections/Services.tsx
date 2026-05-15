@@ -1,5 +1,10 @@
+import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Server, Globe, Brain, Smartphone, ArrowUpRight } from 'lucide-react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const services = [
   {
@@ -33,6 +38,28 @@ const services = [
 ];
 
 export function Services() {
+  const headingRef = useRef<HTMLHeadingElement>(null);
+  const bleedRef = useRef<HTMLSpanElement>(null);
+
+  useEffect(() => {
+    const h = headingRef.current;
+    const b = bleedRef.current;
+    if (!h || !b) return;
+
+    gsap.fromTo(h,
+      { clipPath: 'inset(100% 0 0 0)' },
+      { clipPath: 'inset(0% 0 0 0)', duration: 0.9, ease: 'power3.out',
+        scrollTrigger: { trigger: h, start: 'top 85%', once: true } }
+    );
+    gsap.fromTo(b,
+      { x: 80, opacity: 0 },
+      { x: 0, opacity: 1, duration: 0.8, ease: 'power3.out',
+        scrollTrigger: { trigger: b, start: 'top 85%', once: true } }
+    );
+
+    return () => ScrollTrigger.getAll().forEach(t => t.kill());
+  }, []);
+
   return (
     <section id="services" className="py-24 bg-background overflow-x-hidden">
       <div className="container mx-auto px-6 md:px-16 max-w-[1600px]">
@@ -42,6 +69,7 @@ export function Services() {
           <div className="relative">
             {/* Bleed label behind heading */}
             <span
+              ref={bleedRef}
               className="section-bleed-label pointer-events-none select-none absolute -top-4 left-0 opacity-100"
               aria-hidden="true"
               style={{ zIndex: 0 }}
@@ -53,6 +81,7 @@ export function Services() {
                 What I Offer
               </p>
               <h2
+                ref={headingRef}
                 className="font-syne font-extrabold text-foreground"
                 style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)', lineHeight: 0.9 }}
               >

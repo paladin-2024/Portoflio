@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowDown, Code2, Globe, X } from 'lucide-react';
+import { ParticleCanvas } from '../ui/ParticleCanvas';
 
 const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*';
 
@@ -63,7 +64,10 @@ export function Hero() {
       className="relative w-full bg-background overflow-hidden"
       style={{ minHeight: '100dvh' }}
     >
-      {/* ── Left rule (like the reference's left border) ─── */}
+      {/* ── Particle background ── */}
+      <ParticleCanvas />
+
+      {/* ── Left rule ─── */}
       <div className="absolute left-6 md:left-16 top-0 bottom-0 w-px bg-border z-10" />
 
       {/* ── Top bar ─────────────────────────────────────── */}

@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Projects Redesign</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #0a0908; color: #F0EDE7; font-family: 'JetBrains Mono', monospace; font-size: 13px; }
+
+.page-header { padding: 18px 24px; border-bottom: 1px solid rgba(240,237,231,0.08); display:flex; justify-content:space-between; align-items:center; }
+.page-header h1 { font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #E95420; }
+.page-header p { font-size: 10px; color: rgba(240,237,231,0.35); }
+
+.options-wrap { display:grid; grid-template-columns:1fr 1fr; gap:1px; background:rgba(240,237,231,0.08); }
+@media(max-width:700px){ .options-wrap { grid-template-columns:1fr; } }
+
+.layout-option { cursor:pointer; padding:20px; background:#0a0908; transition:background 0.2s; }
+.layout-option:hover { background:#0f0d0a; }
+.layout-option.selected { outline:2px solid #E95420; }
+.opt-tag { font-size:9px; letter-spacing:0.25em; text-transform:uppercase; color:#E95420; margin-bottom:6px; }
+.opt-title { font-size:14px; font-weight:700; color:#F0EDE7; margin-bottom:8px; letter-spacing:-0.02em; }
+.opt-body { font-size:10px; color:rgba(240,237,231,0.45); line-height:1.7; margin-bottom:14px; }
+
+/* ─── Mockup A: Horizontal scroll strip ─── */
+.hscroll-strip { overflow-x:auto; display:flex; gap:1px; background:rgba(240,237,231,0.08); scrollbar-width:thin; scrollbar-color:#E95420 transparent; padding-bottom:2px; }
+.hscroll-card { flex:0 0 180px; background:#0f0d0a; padding:14px; border-top:2px solid rgba(240,237,231,0.06); transition:border-color 0.2s; }
+.hscroll-card:hover { border-top-color:#E95420; }
+.card-num { font-size:8px; color:rgba(240,237,231,0.2); letter-spacing:0.2em; margin-bottom:8px; }
+.card-img { height:70px; background:rgba(240,237,231,0.04); border:1px solid rgba(240,237,231,0.06); margin-bottom:8px; display:flex; align-items:center; justify-content:center; font-size:8px; color:rgba(240,237,231,0.2); }
+.card-title { font-size:11px; font-weight:700; color:#F0EDE7; margin-bottom:4px; }
+.card-stat { font-size:9px; color:#E95420; margin-bottom:4px; }
+.card-tags { display:flex; flex-wrap:wrap; gap:3px; }
+.ctag { font-size:7px; padding:2px 5px; border:1px solid rgba(240,237,231,0.1); color:rgba(240,237,231,0.35); text-transform:uppercase; letter-spacing:0.1em; }
+
+/* ─── Mockup B: Featured + grid ─── */
+.feat-card { background:#0f0d0a; border:1px solid rgba(240,237,231,0.06); margin-bottom:1px; }
+.feat-img { height:100px; background:rgba(240,237,231,0.04); border-bottom:1px solid rgba(240,237,231,0.06); display:flex; align-items:center; justify-content:center; font-size:9px; color:rgba(240,237,231,0.2); position:relative; overflow:hidden; }
+.feat-img-accent { position:absolute; bottom:0; left:0; width:40px; height:2px; background:#E95420; }
+.feat-content { padding:14px; display:flex; justify-content:space-between; align-items:flex-end; }
+.feat-meta { }
+.feat-title-big { font-size:16px; font-weight:800; color:#F0EDE7; letter-spacing:-0.03em; margin-bottom:4px; }
+.feat-desc { font-size:9px; color:rgba(240,237,231,0.4); max-width:200px; line-height:1.5; margin-bottom:6px; }
+.feat-outcome { font-size:9px; color:#E95420; }
+.feat-cta { font-size:8px; padding:6px 12px; border:1px solid rgba(240,237,231,0.2); color:rgba(240,237,231,0.6); text-transform:uppercase; letter-spacing:0.15em; white-space:nowrap; }
+.mini-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:1px; background:rgba(240,237,231,0.08); }
+.mini-card { background:#0f0d0a; padding:10px; }
+.mini-title { font-size:10px; font-weight:700; color:#F0EDE7; margin-bottom:3px; }
+.mini-tag { font-size:8px; color:#E95420; }
+
+/* ─── Mockup C: Full-width editorial list ─── */
+.proj-list-item { display:flex; align-items:center; justify-content:space-between; padding:12px 0; border-bottom:1px solid rgba(240,237,231,0.06); gap:12px; }
+.proj-num { font-size:8px; color:rgba(240,237,231,0.2); width:24px; flex-shrink:0; }
+.proj-name { font-size:13px; font-weight:700; color:#F0EDE7; flex:1; }
+.proj-outcome { font-size:9px; color:#E95420; flex:0.8; }
+.proj-tags-sm { display:flex; gap:4px; flex-shrink:0; }
+.proj-tag-sm { font-size:7px; padding:2px 5px; border:1px solid rgba(240,237,231,0.1); color:rgba(240,237,231,0.3); }
+.proj-arrow { font-size:10px; color:rgba(240,237,231,0.2); flex-shrink:0; }
+
+/* ─── Mockup D: Bento / masonry grid ─── */
+.bento { display:grid; grid-template-columns:2fr 1fr; grid-template-rows:auto auto; gap:1px; background:rgba(240,237,231,0.08); }
+.bento-cell { background:#0f0d0a; padding:12px; }
+.bento-cell.tall { grid-row:span 2; }
+.bento-cell.accent { border-top:2px solid #E95420; }
+.bento-title { font-size:12px; font-weight:700; color:#F0EDE7; margin-bottom:4px; }
+.bento-sub { font-size:9px; color:rgba(240,237,231,0.35); line-height:1.5; }
+.bento-stat { font-size:18px; font-weight:800; color:#E95420; margin-top:8px; }
+
+/* Footer */
+.footer { padding:14px 24px; border-top:1px solid rgba(240,237,231,0.08); display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+.pick-btn { padding:7px 16px; font-size:9px; letter-spacing:0.15em; text-transform:uppercase; border:1px solid rgba(240,237,231,0.15); background:transparent; color:rgba(240,237,231,0.5); cursor:pointer; transition:all 0.2s; font-family:monospace; }
+.pick-btn:hover, .pick-btn.active { border-color:#E95420; color:#E95420; }
+.pick-btn.rec { border-color:#E95420; background:#E95420; color:#fff; }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <h1>Projects Section — Layout Options</h1>
+  <p>Each shows outcome metrics per project — not just screenshots</p>
+</div>
+
+<div class="options-wrap">
+
+  <!-- A: Horizontal scroll -->
+  <div class="layout-option" id="opt-a" onclick="sel('a')">
+    <div class="opt-tag">Option A ⭐ Recommended</div>
+    <div class="opt-title">Horizontal Scroll Case Study Strip</div>
+    <div class="opt-body">Projects scroll left-right. Each card shows screenshot, outcome metric, and tags. Drag to explore. Feels like a premium agency carousel — clients see depth of work at a glance.</div>
+    <div class="hscroll-strip">
+      <div class="hscroll-card">
+        <div class="card-num">01 / FEATURED</div>
+        <div class="card-img">cyberteks.png</div>
+        <div class="card-title">Cyberteks-IT</div>
+        <div class="card-stat">↑ 3× traffic post-launch</div>
+        <div class="card-tags"><span class="ctag">React</span><span class="ctag">Node</span><span class="ctag">Three.js</span></div>
+      </div>
+      <div class="hscroll-card">
+        <div class="card-num">02</div>
+        <div class="card-img">paladincar.png</div>
+        <div class="card-title">PaladinCars</div>
+        <div class="card-stat">500+ listings indexed</div>
+        <div class="card-tags"><span class="ctag">React</span><span class="ctag">Firebase</span><span class="ctag">TS</span></div>
+      </div>
+      <div class="hscroll-card">
+        <div class="card-num">03</div>
+        <div class="card-img">promptpal.png</div>
+        <div class="card-title">PromptPal</div>
+        <div class="card-stat">Open-source · 100+ users</div>
+        <div class="card-tags"><span class="ctag">React</span><span class="ctag">GSAP</span><span class="ctag">PWA</span></div>
+      </div>
+      <div class="hscroll-card">
+        <div class="card-num">04</div>
+        <div class="card-img">soham.png</div>
+        <div class="card-title">SOHAM</div>
+        <div class="card-stat">NGO · donation platform</div>
+        <div class="card-tags"><span class="ctag">React</span><span class="ctag">Tailwind</span></div>
+      </div>
+      <div class="hscroll-card" style="border:1px dashed rgba(240,237,231,0.1);display:flex;align-items:center;justify-content:center;min-height:120px">
+        <div style="text-align:center;color:rgba(240,237,231,0.2);font-size:9px">+ More on<br>GitHub →</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- B: Featured + grid -->
+  <div class="layout-option" id="opt-b" onclick="sel('b')">
+    <div class="opt-tag">Option B</div>
+    <div class="opt-title">Featured Hero Card + Mini Grid</div>
+    <div class="opt-body">One big featured project full-width at the top (Cyberteks as the anchor). Three smaller cards beneath in a row. Clean editorial hierarchy — best project gets full spotlight.</div>
+    <div class="feat-card">
+      <div class="feat-img">
+        cyberteks — hero screenshot
+        <div class="feat-img-accent"></div>
+      </div>
+      <div class="feat-content">
+        <div class="feat-meta">
+          <div class="feat-title-big">Cyberteks-IT</div>
+          <div class="feat-desc">Future-Ready ICT Solutions. CCTV, remote IT support, training across Africa.</div>
+          <div class="feat-outcome">↑ 3× organic traffic · shipped on time</div>
+        </div>
+        <div class="feat-cta">View Project ↗</div>
+      </div>
+    </div>
+    <div class="mini-grid">
+      <div class="mini-card"><div class="mini-title">PaladinCars</div><div class="mini-tag">Firebase · React</div></div>
+      <div class="mini-card"><div class="mini-title">PromptPal</div><div class="mini-tag">PWA · GSAP</div></div>
+      <div class="mini-card"><div class="mini-title">SOHAM</div><div class="mini-tag">React · NGO</div></div>
+    </div>
+  </div>
+
+  <!-- C: Full-width editorial list -->
+  <div class="layout-option" id="opt-c" onclick="sel('c')">
+    <div class="opt-tag">Option C</div>
+    <div class="opt-title">Editorial List — No Cards</div>
+    <div class="opt-body">No image thumbnails. Projects listed as large text rows with outcome metric inline. Hover reveals a floating image preview. Very editorial — used by top-tier design studios.</div>
+    <div style="padding:0 4px">
+      <div class="proj-list-item">
+        <div class="proj-num">01</div>
+        <div class="proj-name">Cyberteks-IT</div>
+        <div class="proj-outcome">↑ 3× traffic</div>
+        <div class="proj-tags-sm"><span class="proj-tag-sm">React</span><span class="proj-tag-sm">Node</span></div>
+        <div class="proj-arrow">↗</div>
+      </div>
+      <div class="proj-list-item">
+        <div class="proj-num">02</div>
+        <div class="proj-name">PaladinCars</div>
+        <div class="proj-outcome">500+ listings</div>
+        <div class="proj-tags-sm"><span class="proj-tag-sm">Firebase</span></div>
+        <div class="proj-arrow">↗</div>
+      </div>
+      <div class="proj-list-item">
+        <div class="proj-num">03</div>
+        <div class="proj-name">PromptPal</div>
+        <div class="proj-outcome">100+ users</div>
+        <div class="proj-tags-sm"><span class="proj-tag-sm">PWA</span></div>
+        <div class="proj-arrow">↗</div>
+      </div>
+      <div class="proj-list-item">
+        <div class="proj-num">04</div>
+        <div class="proj-name">SOHAM</div>
+        <div class="proj-outcome">NGO platform</div>
+        <div class="proj-tags-sm"><span class="proj-tag-sm">React</span></div>
+        <div class="proj-arrow">↗</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- D: Bento grid -->
+  <div class="layout-option" id="opt-d" onclick="sel('d')">
+    <div class="opt-tag">Option D</div>
+    <div class="opt-title">Bento Grid — Asymmetric Masonry</div>
+    <div class="opt-body">Unequal-sized cards in a bento layout. One tall card on the left, two stacked on the right. Feels modern and editorial. Popular with SaaS and AI products.</div>
+    <div class="bento">
+      <div class="bento-cell tall accent">
+        <div style="height:80px;background:rgba(240,237,231,0.04);border:1px solid rgba(240,237,231,0.06);margin-bottom:10px;display:flex;align-items:center;justify-content:center;font-size:8px;color:rgba(240,237,231,0.2)">cyberteks.png</div>
+        <div class="bento-title">Cyberteks-IT</div>
+        <div class="bento-sub">ICT solutions, CCTV, remote support across Africa</div>
+        <div class="bento-stat">3×</div>
+        <div style="font-size:8px;color:rgba(240,237,231,0.3)">traffic increase</div>
+      </div>
+      <div class="bento-cell">
+        <div class="bento-title">PaladinCars</div>
+        <div class="bento-sub">Car listing platform · Firebase</div>
+      </div>
+      <div class="bento-cell">
+        <div class="bento-title">PromptPal</div>
+        <div class="bento-sub">AI prompt community · PWA</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <button class="pick-btn rec" onclick="sel('a')">A — Horizontal Scroll</button>
+  <button class="pick-btn" onclick="sel('b')">B — Featured + Grid</button>
+  <button class="pick-btn" onclick="sel('c')">C — Editorial List</button>
+  <button class="pick-btn" onclick="sel('d')">D — Bento Grid</button>
+  <span style="font-size:9px;color:rgba(240,237,231,0.25);margin-left:auto">All options include outcome metrics + real screenshots</span>
+</div>
+
+<script>
+function sel(id){
+  ['a','b','c','d'].forEach(o=>document.getElementById('opt-'+o).classList.remove('selected'));
+  document.getElementById('opt-'+id).classList.add('selected');
+  document.querySelectorAll('.pick-btn').forEach((b,i)=>{
+    b.classList.remove('active');
+    if(['a','b','c','d'][i]===id)b.classList.add('active');
+  });
+  try{window.parent.postMessage({type:'choice',choice:id},'*');}catch(e){}
+}
+</script>
+</body>
+</html>

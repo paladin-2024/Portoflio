@@ -1,193 +1,160 @@
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Moon, Sun } from 'lucide-react';
+import { Sun, Moon, Menu, X } from 'lucide-react';
 import { useTheme } from '../../context/theme-provider';
-import { cn } from '../../lib/utils';
 
-const navItems = [
-  { href: '#hero',     label: 'Home',     num: '00' },
-  { href: '#projects', label: 'Work',     num: '01' },
-  { href: '#about',    label: 'About',    num: '02' },
-  { href: '#services', label: 'Services', num: '03' },
-  { href: '#contact',  label: 'Contact',  num: '04' },
+const sections = [
+  { id: 'hero',     label: 'Home'     },
+  { id: 'projects', label: 'Work'     },
+  { id: 'services', label: 'Services' },
+  { id: 'about',    label: 'About'    },
+  { id: 'contact',  label: 'Contact'  },
 ];
 
-function scrollToSection(href: string) {
-  const id = href.replace('#', '');
-  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
-}
-
 export function Navigation() {
-  const [isOpen, setIsOpen]           = useState(false);
-  const [scrolled, setScrolled]       = useState(false);
-  const [activeSection, setActive]    = useState('hero');
-  const { theme, setTheme }           = useTheme();
+  const { theme, setTheme } = useTheme();
+  const [active, setActive] = useState('hero');
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   useEffect(() => {
-    const handle = () => setScrolled(window.scrollY > 40);
-    window.addEventListener('scroll', handle, { passive: true });
-    return () => window.removeEventListener('scroll', handle);
-  }, []);
-
-  useEffect(() => {
-    const ids = navItems.map((i) => i.href.replace('#', ''));
-    const obs: IntersectionObserver[] = [];
-    ids.forEach((id) => {
+    const observers = sections.map(({ id }) => {
       const el = document.getElementById(id);
-      if (!el) return;
-      const o = new IntersectionObserver(
-        ([e]) => { if (e.isIntersecting) setActive(id); },
+      if (!el) return null;
+      const obs = new IntersectionObserver(
+        ([entry]) => { if (entry.isIntersecting) setActive(id); },
         { rootMargin: '-40% 0px -55% 0px' }
       );
-      o.observe(el);
-      obs.push(o);
+      obs.observe(el);
+      return obs;
     });
-    return () => obs.forEach((o) => o.disconnect());
+    return () => observers.forEach(obs => obs?.disconnect());
   }, []);
+
+  function scrollTo(id: string) {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+    setDrawerOpen(false);
+  }
+
+  function toggleTheme() {
+    setTheme(theme === 'dark' ? 'light' : 'dark');
+  }
 
   return (
     <>
+      {/* ── Desktop: fixed left rail ── */}
       <nav
-        className={cn(
-          'fixed top-0 left-0 right-0 z-50 transition-all duration-500',
-          scrolled
-            ? 'bg-background/90 backdrop-blur-md border-b border-border md:bg-background md:backdrop-blur-none'
-            : 'bg-background/70 backdrop-blur-md md:bg-transparent md:backdrop-blur-none'
-        )}
+        className="hidden md:flex fixed left-0 top-0 bottom-0 w-14 flex-col items-center py-6 z-50 border-r border-border bg-background/80 backdrop-blur-sm"
       >
-        <div className="mx-auto px-6 md:px-16 max-w-[1600px]">
-          <div className="flex items-center justify-between h-14">
+        {/* Logo mark */}
+        <button
+          onClick={() => scrollTo('hero')}
+          aria-label="Home"
+          className="mb-10 w-7 h-7 border border-accent flex items-center justify-center font-syne font-extrabold text-accent text-sm hover:bg-accent hover:text-white transition-colors duration-200"
+        >
+          N
+        </button>
 
-            {/* Logo */}
-            <a
-              href="#hero"
-              onClick={(e) => { e.preventDefault(); scrollToSection('#hero'); }}
-              className="font-syne text-3xl font-black tracking-tight text-foreground hover:text-accent transition-colors duration-200"
+        {/* Section dots */}
+        <div className="flex flex-col items-center gap-6 flex-1">
+          {sections.map(({ id, label }) => (
+            <button
+              key={id}
+              onClick={() => scrollTo(id)}
+              aria-label={label}
+              className="nav-dot-btn relative flex items-center justify-center"
             >
-              N<span className="text-accent">.</span>
-            </a>
+              <span
+                className={`block rounded-full transition-all duration-300 ${
+                  active === id
+                    ? 'w-2 h-2 bg-accent'
+                    : 'w-1.5 h-1.5 bg-foreground/20 hover:bg-foreground/50'
+                }`}
+              />
+              <span className="nav-dot-label">{label}</span>
+            </button>
+          ))}
+        </div>
 
-            {/* Desktop nav */}
-            <div className="hidden md:flex items-center gap-8">
-              {navItems.map((item) => {
-                const id      = item.href.replace('#', '');
-                const isActive = activeSection === id;
-                return (
-                  <a
-                    key={item.href}
-                    href={item.href}
-                    onClick={(e) => { e.preventDefault(); scrollToSection(item.href); }}
-                    className={cn(
-                      'group relative flex items-center gap-1.5 font-mono font-bold text-[13px] uppercase tracking-widest transition-colors duration-200',
-                      isActive ? 'text-foreground' : 'text-muted-foreground hover:text-foreground'
-                    )}
-                  >
-                    <span className="text-[10px] text-muted-foreground/40 group-hover:text-accent transition-colors">
-                      {item.num}
-                    </span>
-                    {item.label}
-                    {isActive && (
-                      <motion.span
-                        layoutId="nav-active"
-                        className="absolute -bottom-[17px] left-0 right-0 h-[1px] bg-accent"
-                        transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                      />
-                    )}
-                  </a>
-                );
-              })}
-            </div>
-
-            {/* Right controls */}
-            <div className="flex items-center gap-4">
-              <button
-                onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-                aria-label="Toggle theme"
-                className="p-1.5 text-muted-foreground hover:text-foreground transition-colors"
-              >
-                {theme === 'dark'
-                  ? <Sun className="h-3.5 w-3.5" />
-                  : <Moon className="h-3.5 w-3.5" />}
-              </button>
-
-              {/* Mobile hamburger */}
-              <button
-                onClick={() => setIsOpen(!isOpen)}
-                aria-label="Toggle menu"
-                className="md:hidden flex flex-col gap-1 p-1.5 text-foreground"
-              >
-                <motion.span
-                  animate={isOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }}
-                  className="block w-5 h-px bg-current origin-center"
-                  transition={{ duration: 0.2 }}
-                />
-                <motion.span
-                  animate={isOpen ? { opacity: 0, x: -4 } : { opacity: 1, x: 0 }}
-                  className="block w-5 h-px bg-current"
-                  transition={{ duration: 0.2 }}
-                />
-                <motion.span
-                  animate={isOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }}
-                  className="block w-5 h-px bg-current origin-center"
-                  transition={{ duration: 0.2 }}
-                />
-              </button>
-            </div>
-          </div>
+        {/* Theme toggle + year */}
+        <div className="flex flex-col items-center gap-4">
+          <button
+            onClick={toggleTheme}
+            aria-label="Toggle theme"
+            className="text-muted-foreground hover:text-accent transition-colors duration-200"
+          >
+            {theme === 'dark'
+              ? <Sun className="h-3.5 w-3.5" />
+              : <Moon className="h-3.5 w-3.5" />
+            }
+          </button>
+          <span
+            className="font-mono text-[8px] text-muted-foreground/40 tracking-widest select-none"
+            style={{ writingMode: 'vertical-rl' }}
+          >
+            2026
+          </span>
         </div>
       </nav>
 
-      {/* Mobile fullscreen overlay */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, clipPath: 'inset(0 0 100% 0)' }}
-            animate={{ opacity: 1, clipPath: 'inset(0 0 0% 0)' }}
-            exit={{ opacity: 0, clipPath: 'inset(0 0 100% 0)' }}
-            transition={{ duration: 0.4, ease: [0.76, 0, 0.24, 1] }}
-            className="fixed inset-0 z-40 bg-foreground flex flex-col justify-center px-8"
-          >
-            <div className="space-y-1">
-              {navItems.map((item, i) => (
-                <motion.div
-                  key={item.href}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -20 }}
-                  transition={{ delay: i * 0.06, duration: 0.3 }}
-                  className="border-b border-background/10 py-5"
-                >
-                  <a
-                    href={item.href}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      scrollToSection(item.href);
-                      setIsOpen(false);
-                    }}
-                    className="flex items-center justify-between group"
-                  >
-                    <span className="font-syne font-extrabold text-background group-hover:text-accent transition-colors"
-                      style={{ fontSize: 'clamp(2rem, 8vw, 3.5rem)' }}
-                    >
-                      {item.label}
-                    </span>
-                    <span className="font-mono text-xs text-background/30">{item.num}</span>
-                  </a>
-                </motion.div>
-              ))}
-            </div>
+      {/* ── Mobile: hamburger ── */}
+      <button
+        onClick={() => setDrawerOpen(true)}
+        aria-label="Open menu"
+        className="md:hidden fixed top-4 left-4 z-50 p-2 border border-border bg-background/90 backdrop-blur-sm text-foreground"
+      >
+        <Menu className="h-4 w-4" />
+      </button>
 
-            <div className="absolute bottom-10 left-8 right-8 flex justify-between items-center">
-              <span className="font-mono text-[10px] uppercase tracking-widest text-background/30">
-                Nzabanita Caleb · {new Date().getFullYear()}
-              </span>
-              <span className="font-mono text-[10px] uppercase tracking-widest text-background/30">
-                Kampala, UG
+      {/* ── Mobile: slide-in drawer ── */}
+      {drawerOpen && (
+        <div className="md:hidden fixed inset-0 z-50 flex">
+          <div
+            className="absolute inset-0 bg-black/60"
+            onClick={() => setDrawerOpen(false)}
+          />
+          <div className="relative w-72 bg-background border-r border-border flex flex-col p-8 gap-8">
+            <button
+              onClick={() => setDrawerOpen(false)}
+              aria-label="Close menu"
+              className="absolute top-4 right-4 text-muted-foreground hover:text-foreground"
+            >
+              <X className="h-4 w-4" />
+            </button>
+
+            <span className="font-syne font-extrabold text-2xl text-foreground">
+              NC<span className="text-accent">_</span>
+            </span>
+
+            <nav className="flex flex-col gap-6">
+              {sections.map(({ id, label }) => (
+                <button
+                  key={id}
+                  onClick={() => scrollTo(id)}
+                  className={`text-left font-syne font-extrabold text-2xl transition-colors duration-200 ${
+                    active === id
+                      ? 'text-accent'
+                      : 'text-foreground/50 hover:text-foreground'
+                  }`}
+                >
+                  {label}
+                </button>
+              ))}
+            </nav>
+
+            <div className="mt-auto flex items-center gap-4">
+              <button
+                onClick={toggleTheme}
+                aria-label="Toggle theme"
+                className="text-muted-foreground hover:text-accent transition-colors"
+              >
+                {theme === 'dark' ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+              </button>
+              <span className="font-mono text-[9px] uppercase tracking-widest text-muted-foreground/40">
+                2026
               </span>
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          </div>
+        </div>
+      )}
     </>
   );
 }

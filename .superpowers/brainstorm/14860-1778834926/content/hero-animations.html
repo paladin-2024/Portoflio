@@ -1,0 +1,104 @@
+<h2>Design Section 2 — Hero & Animation System</h2>
+<p class="subtitle">How the first thing clients see should feel.</p>
+
+<div class="section">
+  <h3>Hero Upgrades (all applied)</h3>
+  <div style="display:grid;gap:10px;margin-top:12px">
+    <div style="padding:12px 16px;background:#111;color:#ddd;border-left:3px solid #E95420;border-radius:0 4px 4px 0;font-size:0.83rem">
+      <strong style="color:#E95420">Three.js HeroScene activated</strong> — The animated sphere + floating particles (already built, just not imported) becomes a subtle dark background behind the hero text. Low opacity so it doesn't distract.
+    </div>
+    <div style="padding:12px 16px;background:#111;color:#ddd;border-left:3px solid #E95420;border-radius:0 4px 4px 0;font-size:0.83rem">
+      <strong style="color:#E95420">Lenis smooth scroll wired up</strong> — Already installed but not used. One file change in main.tsx gives the whole site buttery scroll feel.
+    </div>
+    <div style="padding:12px 16px;background:#111;color:#ddd;border-left:3px solid #E95420;border-radius:0 4px 4px 0;font-size:0.83rem">
+      <strong style="color:#E95420">Magnetic CTA buttons</strong> — "View Work" and "Let's Talk" buttons follow the cursor slightly on hover. Premium micro-interaction.
+    </div>
+    <div style="padding:12px 16px;background:#111;color:#ddd;border-left:3px solid #E95420;border-radius:0 4px 4px 0;font-size:0.83rem">
+      <strong style="color:#E95420">Floating "Book a Call" button</strong> — Persistent bottom-right CTA. Pulses with the accent color. Links to WhatsApp (already have the URL). Disappears on Contact section scroll.
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>Animation System — GSAP ScrollTrigger (site-wide)</h3>
+  <p style="font-size:0.83rem;color:#666;margin-bottom:12px">Every section gets a consistent reveal pattern. No more "elements just appear" — everything has intention.</p>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+    <div style="padding:12px;background:#0a0908;color:#F0EDE7;border:1px solid #2a2520;border-radius:4px;font-size:0.8rem">
+      <div style="color:#E95420;font-family:monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.2em;margin-bottom:6px">Headings</div>
+      Clip-path reveal — text slides up from behind a mask. Sharp, editorial.
+    </div>
+    <div style="padding:12px;background:#0a0908;color:#F0EDE7;border:1px solid #2a2520;border-radius:4px;font-size:0.8rem">
+      <div style="color:#E95420;font-family:monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.2em;margin-bottom:6px">Cards / Panels</div>
+      Staggered fade-up with 80ms delay between items. Feels alive without being flashy.
+    </div>
+    <div style="padding:12px;background:#0a0908;color:#F0EDE7;border:1px solid #2a2520;border-radius:4px;font-size:0.8rem">
+      <div style="color:#E95420;font-family:monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.2em;margin-bottom:6px">Stats counters</div>
+      Already using GSAP — keep as-is, just wire to ScrollTrigger properly.
+    </div>
+    <div style="padding:12px;background:#0a0908;color:#F0EDE7;border:1px solid #2a2520;border-radius:4px;font-size:0.8rem">
+      <div style="color:#E95420;font-family:monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.2em;margin-bottom:6px">Section labels</div>
+      Bleed text (SERVICES. PROJECTS.) animates in from right on scroll. Dramatic.
+    </div>
+    <div style="padding:12px;background:#0a0908;color:#F0EDE7;border:1px solid #2a2520;border-radius:4px;font-size:0.8rem">
+      <div style="color:#E95420;font-family:monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.2em;margin-bottom:6px">Horizontal lines</div>
+      Border rules draw in with scaleX from 0→1 as they enter viewport.
+    </div>
+    <div style="padding:12px;background:#0a0908;color:#F0EDE7;border:1px solid #2a2520;border-radius:4px;font-size:0.8rem">
+      <div style="color:#E95420;font-family:monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.2em;margin-bottom:6px">Image (About)</div>
+      Grayscale → color transition on scroll entry, not just hover. More impactful.
+    </div>
+  </div>
+</div>
+
+<div class="mockup" style="margin-top:24px">
+  <div class="mockup-header">Hero — Dark Mode Wireframe</div>
+  <div class="mockup-body" style="background:#0a0908;padding:32px;min-height:320px;position:relative;overflow:hidden">
+    <!-- Particle dots suggestion -->
+    <div style="position:absolute;inset:0;opacity:0.15">
+      <div style="position:absolute;top:20%;left:60%;width:4px;height:4px;background:#E95420;border-radius:50%"></div>
+      <div style="position:absolute;top:35%;left:75%;width:2px;height:2px;background:#F0EDE7;border-radius:50%"></div>
+      <div style="position:absolute;top:60%;left:65%;width:3px;height:3px;background:#F0EDE7;border-radius:50%"></div>
+      <div style="position:absolute;top:15%;left:80%;width:2px;height:2px;background:#E95420;border-radius:50%"></div>
+      <div style="position:absolute;top:70%;left:80%;width:4px;height:4px;background:#F0EDE7;border-radius:50%"></div>
+      <div style="position:absolute;top:45%;left:55%;width:2px;height:2px;background:#E95420;border-radius:50%"></div>
+      <!-- Suggestion of sphere -->
+      <div style="position:absolute;top:10%;right:5%;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle at 40% 40%,#1a1814,#0a0908);border:1px solid rgba(233,84,32,0.12);opacity:0.5"></div>
+    </div>
+    <!-- Left border rule -->
+    <div style="position:absolute;left:24px;top:0;bottom:0;width:1px;background:rgba(240,237,231,0.08)"></div>
+    <!-- Nav suggestion -->
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:48px;padding-left:24px">
+      <div style="font-family:monospace;font-size:10px;color:#E95420;letter-spacing:0.3em;text-transform:uppercase">● Running Ubuntu 24.04 LTS</div>
+      <div style="padding:6px 14px;border:1px solid #E95420;background:#E95420;color:#fff;font-family:monospace;font-size:9px;letter-spacing:0.15em;text-transform:uppercase">⬤ Available for Work</div>
+    </div>
+    <!-- Big heading -->
+    <div style="padding-left:24px">
+      <div style="font-size:clamp(2.5rem,7vw,4.5rem);font-weight:800;color:#F0EDE7;line-height:0.87;letter-spacing:-0.03em;font-family:Georgia,serif">
+        Software Engineer<br>
+        <span style="color:#F0EDE7">&amp; Backend Developer.</span>
+      </div>
+      <!-- Bottom row -->
+      <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-top:48px;flex-wrap:wrap;gap:16px">
+        <div>
+          <div style="color:#888;font-size:12px;margin-bottom:12px;font-style:italic">nzabanita, software engineer</div>
+          <div style="display:flex;gap:12px">
+            <div style="padding:10px 20px;background:#F0EDE7;color:#0a0908;font-family:monospace;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;cursor:pointer">View Work</div>
+            <div style="padding:10px 20px;border:1px solid rgba(240,237,231,0.3);color:#F0EDE7;font-family:monospace;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;cursor:pointer">Let's Talk</div>
+          </div>
+        </div>
+        <div style="background:#0f0d0a;border:1px solid #2a2520;padding:16px;font-family:monospace;font-size:10px;min-width:200px">
+          <div style="color:rgba(240,237,231,0.2);font-size:8px;letter-spacing:0.3em;margin-bottom:8px">● ● ●</div>
+          <div><span style="color:#E95420">nzabanita@ubuntu</span><span style="color:#888">:~$ neofetch</span></div>
+          <div style="color:rgba(240,237,231,0.6)">OS: Ubuntu 24.04.2 LTS</div>
+          <div style="color:rgba(240,237,231,0.6)">Role: Software Engineer</div>
+          <div style="color:rgba(240,237,231,0.35)"># Available · cnzabb@gmail.com</div>
+          <div style="display:flex;align-items:center;gap:4px;margin-top:4px"><span style="color:#E95420">nzabanita@ubuntu:~$</span><span style="display:inline-block;width:8px;height:14px;background:#E95420;animation:none"></span></div>
+        </div>
+      </div>
+    </div>
+    <!-- Floating CTA -->
+    <div style="position:absolute;bottom:16px;right:16px;background:#E95420;color:#fff;padding:10px 18px;font-family:monospace;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;border-radius:2px;box-shadow:0 0 20px rgba(233,84,32,0.3)">⬤ Book a Call</div>
+  </div>
+</div>
+
+<p class="subtitle" style="margin-top:16px">Does this hero direction look right? Reply in the terminal to confirm and we'll move to the Projects section redesign.</p>

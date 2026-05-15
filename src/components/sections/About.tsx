@@ -1,6 +1,11 @@
+import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Download, Terminal } from 'lucide-react';
 import { Button } from '../ui/button';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const timeline = [
   { year: '2026', title: 'Software Engineer',       company: 'Freelance, Kampala, Uganda' },
@@ -20,6 +25,30 @@ const descriptors = [
 ];
 
 export function About() {
+  const imgRef = useRef<HTMLImageElement>(null);
+  const headingRef = useRef<HTMLHeadingElement>(null);
+
+  useEffect(() => {
+    const img = imgRef.current;
+    const h = headingRef.current;
+    if (!img || !h) return;
+
+    // Grayscale → color on scroll entry
+    gsap.fromTo(img,
+      { filter: 'grayscale(1) contrast(1.1)' },
+      { filter: 'grayscale(0) contrast(1)', duration: 1.2, ease: 'power2.out',
+        scrollTrigger: { trigger: img, start: 'top 75%', once: true } }
+    );
+    // Heading clip-path reveal
+    gsap.fromTo(h,
+      { clipPath: 'inset(100% 0 0 0)' },
+      { clipPath: 'inset(0% 0 0 0)', duration: 0.9, ease: 'power3.out',
+        scrollTrigger: { trigger: h, start: 'top 85%', once: true } }
+    );
+
+    return () => ScrollTrigger.getAll().forEach(t => t.kill());
+  }, []);
+
   return (
     <section id="about" className="py-24 bg-background overflow-x-hidden">
       {/* Top rule */}
@@ -38,9 +67,11 @@ export function About() {
           >
             <div className="relative overflow-hidden aspect-[3/4] max-w-sm border border-border">
               <img
+                ref={imgRef}
                 src="/assets/profile.jpg"
                 alt="Nzabanita Caleb"
-                className="w-full h-full object-cover grayscale contrast-110 hover:grayscale-0 transition-all duration-700"
+                className="w-full h-full object-cover"
+                style={{ filter: 'grayscale(1) contrast(1.1)' }}
               />
               {/* Grain overlay */}
               <div
@@ -77,6 +108,7 @@ export function About() {
               Who I Am
             </p>
             <h2
+              ref={headingRef}
               className="font-syne font-extrabold text-foreground mb-6"
               style={{ fontSize: 'clamp(2.2rem, 4vw, 3.8rem)', lineHeight: 0.92 }}
             >

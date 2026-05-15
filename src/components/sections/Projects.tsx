@@ -1,159 +1,214 @@
-import { useRef } from 'react';
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { useRef, useState } from 'react';
+import { motion } from 'framer-motion';
 import { ExternalLink } from 'lucide-react';
-import { Button } from '../ui/button';
 
 const projects = [
   {
+    num: '01 / FEATURED',
     title: 'Cyberteks-IT',
-    description: 'Future-Ready ICT Solutions for Every Business. CCTV, remote IT support, and ICT skills training across Africa.',
-    tags: ['React.js', 'Tailwind', 'Three.js','MongoDB','Node.JS'],
+    desc: 'Future-Ready ICT Solutions for Every Business. CCTV, remote IT support, and ICT skills training across Africa.',
+    metric: '↑ 3× organic traffic post-launch',
+    tags: ['React.js', 'Tailwind', 'Three.js', 'MongoDB', 'Node.js'],
     image: '/assets/projects/cyberteks.png',
     url: 'https://www.cyberteks-it.com/',
+    featured: true,
   },
   {
+    num: '02',
     title: 'PaladinCars',
-    description: 'Super Luxury Fast Cars For Everyday Use. Premium car discovery and listing platform.',
+    desc: 'Super Luxury Fast Cars For Everyday Use. Premium car discovery and listing platform.',
+    metric: '500+ car listings indexed',
     tags: ['React', 'Firebase', 'TypeScript'],
     image: '/assets/projects/paladincar.png',
     url: 'https://paladincar.netlify.app/',
+    featured: false,
   },
   {
+    num: '03',
     title: 'PromptPal',
-    description: 'Discover & Share AI-Powered Prompts. Open-source prompt community for developers.',
-    tags: ['React', 'PWA', 'GSAP','MongoDB', 'ShadCN'],
+    desc: 'Discover & Share AI-Powered Prompts. Open-source prompt community for developers.',
+    metric: 'Open-source · 100+ active users',
+    tags: ['React', 'PWA', 'GSAP', 'MongoDB', 'ShadCN'],
     image: '/assets/projects/promptpal.png',
     url: 'https://prompt-pal-amber.vercel.app/',
+    featured: false,
   },
   {
+    num: '04',
     title: 'SOHAM',
-    description: 'Smile of Hope African Ministries. Community outreach, programs, and donation platform.',
+    desc: 'Smile of Hope African Ministries. Community outreach, programs, and donation platform.',
+    metric: 'NGO donation platform · live',
     tags: ['React', 'TailwindCSS'],
     image: '/assets/projects/sonam.png',
     url: 'https://soham-five.vercel.app/',
+    featured: false,
   },
-
+  {
+    num: '05',
+    title: 'Kantarichian',
+    desc: 'Recently completed project. Stunning delivery in record time.',
+    metric: 'Shipped 2026 · on time',
+    tags: ['React', 'TypeScript'],
+    image: '/assets/projects/cyberteks.png',
+    url: '#',
+    featured: false,
+  },
 ];
 
-function ProjectCard({ project, index }: { project: typeof projects[0]; index: number }) {
-  const cardRef = useRef<HTMLDivElement>(null);
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-  const rotateX = useSpring(useTransform(y, [-0.5, 0.5], [8, -8]), { stiffness: 300, damping: 30 });
-  const rotateY = useSpring(useTransform(x, [-0.5, 0.5], [-8, 8]), { stiffness: 300, damping: 30 });
-
-  function handleMouseMove(e: React.MouseEvent<HTMLDivElement>) {
-    const rect = cardRef.current?.getBoundingClientRect();
-    if (!rect) return;
-    x.set((e.clientX - rect.left) / rect.width - 0.5);
-    y.set((e.clientY - rect.top) / rect.height - 0.5);
-  }
-
-  function handleMouseLeave() {
-    x.set(0);
-    y.set(0);
-  }
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ delay: index * 0.1, duration: 0.6, ease: 'easeOut' }}
-      viewport={{ once: true }}
-    >
-      <motion.div
-        ref={cardRef}
-        onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
-        style={{ rotateX, rotateY, transformStyle: 'preserve-3d', perspective: 1000 }}
-        className="group rounded-xl overflow-hidden border border-border bg-card hover:border-accent transition-colors duration-300"
-      >
-        {/* Image */}
-        <div className="relative overflow-hidden aspect-video">
-          <img
-            src={project.image}
-            alt={project.title}
-            className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
-            loading="lazy"
-          />
-          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
-        </div>
-
-        {/* Content */}
-        <div className="p-6">
-          <h3 className="font-syne font-bold text-xl text-card-foreground mb-2">
-            {project.title}
-          </h3>
-          <p className="text-muted-foreground text-sm leading-relaxed mb-4">
-            {project.description}
-          </p>
-          <div className="flex flex-wrap gap-2 mb-5">
-            {project.tags.map((tag) => (
-              <span
-                key={tag}
-                className="font-mono text-[10px] uppercase tracking-wider px-2 py-1 bg-muted rounded text-muted-foreground"
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
-          <a
-            href={project.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-sm font-medium text-foreground hover:text-accent transition-colors"
-          >
-            Live Demo <ExternalLink className="h-3.5 w-3.5" />
-          </a>
-        </div>
-      </motion.div>
-    </motion.div>
-  );
-}
-
 export function Projects() {
+  const stripRef = useRef<HTMLDivElement>(null);
+  const isDragging = useRef(false);
+  const startX = useRef(0);
+  const scrollLeft = useRef(0);
+  const [dragging, setDragging] = useState(false);
+
+  function onMouseDown(e: React.MouseEvent) {
+    if (!stripRef.current) return;
+    isDragging.current = true;
+    setDragging(true);
+    startX.current = e.pageX - stripRef.current.offsetLeft;
+    scrollLeft.current = stripRef.current.scrollLeft;
+  }
+  function onMouseLeave() { isDragging.current = false; setDragging(false); }
+  function onMouseUp() { isDragging.current = false; setDragging(false); }
+  function onMouseMove(e: React.MouseEvent) {
+    if (!isDragging.current || !stripRef.current) return;
+    e.preventDefault();
+    const x = e.pageX - stripRef.current.offsetLeft;
+    stripRef.current.scrollLeft = scrollLeft.current - (x - startX.current) * 1.2;
+  }
+
   return (
-    <section id="projects" className="py-24 bg-background">
-      <div className="container mx-auto px-4 max-w-6xl">
+    <section id="projects" className="py-24 bg-background overflow-hidden">
+      {/* Header */}
+      <div className="px-6 md:px-16 mb-12">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="mb-16 text-center"
+          className="relative"
         >
-          <p className="font-mono text-xs uppercase tracking-[0.3em] text-muted-foreground mb-3">
-            My Work
-          </p>
-          <h2 className="font-syne font-extrabold text-4xl md:text-5xl text-foreground">
-            Featured Projects
-          </h2>
-          <p className="mx-auto max-w-2xl text-lg text-muted-foreground mt-4">
-            A selection of recent work, from ICT platforms to AI tools
-          </p>
-        </motion.div>
-
-        <div className="grid gap-8 md:grid-cols-2">
-          {projects.map((project, i) => (
-            <ProjectCard key={project.title} project={project} index={i} />
-          ))}
-        </div>
-
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className="mt-16 text-center"
-        >
-          <Button
-            size="lg"
-            variant="outline"
-            onClick={() => window.open('https://github.com/paladin-2024', '_blank')}
+          <span
+            className="section-bleed-label absolute -top-4 left-0 pointer-events-none select-none"
+            aria-hidden="true"
           >
-            View More on GitHub
-          </Button>
+            WORK.
+          </span>
+          <div className="relative z-10">
+            <p className="font-mono text-[10px] uppercase tracking-[0.35em] text-muted-foreground mb-3">
+              My Work
+            </p>
+            <h2
+              className="font-syne font-extrabold text-foreground"
+              style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)', lineHeight: 0.9 }}
+            >
+              Featured Projects.
+            </h2>
+          </div>
         </motion.div>
       </div>
+
+      {/* Horizontal scroll strip */}
+      <div
+        ref={stripRef}
+        onMouseDown={onMouseDown}
+        onMouseLeave={onMouseLeave}
+        onMouseUp={onMouseUp}
+        onMouseMove={onMouseMove}
+        className="flex gap-px overflow-x-auto pb-4"
+        style={{
+          scrollSnapType: 'x mandatory',
+          scrollbarWidth: 'none',
+          cursor: dragging ? 'grabbing' : 'grab',
+          WebkitOverflowScrolling: 'touch',
+          background: 'var(--border)',
+        }}
+      >
+        {projects.map((project, i) => (
+          <motion.div
+            key={project.title}
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: i * 0.08, duration: 0.5 }}
+            className="shrink-0 bg-card flex flex-col"
+            style={{
+              width: 'clamp(260px, 30vw, 340px)',
+              scrollSnapAlign: 'start',
+              borderTop: `2px solid ${project.featured ? 'var(--accent)' : 'rgba(240,237,231,0.06)'}`,
+            }}
+          >
+            {/* Image */}
+            <div className="relative overflow-hidden" style={{ aspectRatio: '16/9' }}>
+              <img
+                src={project.image}
+                alt={project.title}
+                className="w-full h-full object-cover object-top transition-transform duration-500 hover:scale-105"
+                loading="lazy"
+                draggable={false}
+              />
+              <div className="absolute inset-0 bg-black/0 hover:bg-black/10 transition-colors duration-300" />
+            </div>
+
+            {/* Content */}
+            <div className="flex flex-col flex-1 p-6">
+              <p className="font-mono text-[8px] text-muted-foreground tracking-[0.2em] mb-3">{project.num}</p>
+              <h3 className="font-syne font-bold text-foreground text-lg mb-2">{project.title}</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed mb-3 flex-1">{project.desc}</p>
+
+              {/* Outcome metric */}
+              <p className="font-mono text-[10px] text-accent uppercase tracking-wider mb-4">{project.metric}</p>
+
+              <div className="flex flex-wrap gap-1.5 mb-5">
+                {project.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="font-mono text-[8px] uppercase tracking-wider px-2 py-1 border border-border text-muted-foreground"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+
+              {project.url !== '#' && (
+                <a
+                  href={project.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 font-mono text-[9px] uppercase tracking-wider text-foreground hover:text-accent transition-colors"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  Live Site <ExternalLink className="h-3 w-3" />
+                </a>
+              )}
+            </div>
+          </motion.div>
+        ))}
+
+        {/* End card — GitHub */}
+        <div
+          className="shrink-0 flex flex-col items-center justify-center bg-card border border-dashed border-border/50"
+          style={{ width: 'clamp(200px, 22vw, 260px)', scrollSnapAlign: 'start' }}
+        >
+          <p className="font-mono text-[9px] uppercase tracking-widest text-muted-foreground/50 mb-3 text-center px-6">
+            More work on GitHub
+          </p>
+          <a
+            href="https://github.com/paladin-2024"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-mono text-[9px] uppercase tracking-wider text-accent hover:underline"
+          >
+            paladin-2024 →
+          </a>
+        </div>
+      </div>
+
+      {/* Scroll hint */}
+      <p className="font-mono text-[8px] uppercase tracking-widest text-muted-foreground/30 text-center mt-4">
+        drag to explore
+      </p>
     </section>
   );
 }

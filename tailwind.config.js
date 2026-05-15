@@ -28,7 +28,7 @@ export default {
       },
       fontFamily: {
         syne: ['Syne', 'system-ui', 'sans-serif'],
-        sans: ['DM Sans', 'system-ui', '-apple-system', 'sans-serif'],
+        sans: ['Plus Jakarta Sans', 'system-ui', '-apple-system', 'sans-serif'],
         mono: ['JetBrains Mono', 'monospace'],
       },
       animation: {
