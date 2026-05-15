@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { fadeUp, scaleIn, stagger } from '../../lib/animations';
 
 const stats = [
   { value: '10+', label: 'Projects\nDelivered' },
@@ -26,7 +27,7 @@ const testimonials = [
     initial: 'K',
     color: '#1a6b3c',
     role: 'Founder',
-    company: 'Kantarichian',
+    company: 'Kantariciah Foundation',
     quote: "The work was stunning — I honestly didn't expect a product this polished in such a short time. Caleb exceeded every expectation.",
   },
 ];
@@ -71,14 +72,17 @@ export function Testimonials() {
         </div>
 
         {/* Stat strip */}
-        <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-background/10 border border-background/10 mb-1">
+        <motion.div
+          variants={stagger(0.1)}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: '-50px' }}
+          className="grid grid-cols-2 md:grid-cols-4 divide-x divide-background/10 border border-background/10 mb-1"
+        >
           {stats.map((s, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.07, duration: 0.5 }}
+              variants={scaleIn}
               className="flex flex-col items-start p-6 md:p-8"
             >
               <span
@@ -92,17 +96,20 @@ export function Testimonials() {
               </span>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
 
         {/* Quote cards */}
-        <div className="grid md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-background/10 border border-background/10 border-t-0">
+        <motion.div
+          variants={stagger(0.13)}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: '-50px' }}
+          className="grid md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-background/10 border border-background/10 border-t-0"
+        >
           {testimonials.map((t, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1, duration: 0.6 }}
+              variants={fadeUp}
               className="p-8 group hover:bg-background/5 transition-colors duration-300"
             >
               {/* Avatar + stars */}
@@ -128,7 +135,7 @@ export function Testimonials() {
               </p>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
 
       </div>
     </section>

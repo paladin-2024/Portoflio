@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { slideLeft, stagger } from '../../lib/animations';
 
 const steps = [
   {
@@ -65,14 +66,16 @@ export function Process() {
         </div>
 
         {/* Steps — editorial list */}
-        <div>
-          {steps.map((step, i) => (
+        <motion.div
+          variants={stagger(0.09)}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: '-60px' }}
+        >
+          {steps.map((step) => (
             <motion.div
               key={step.num}
-              initial={{ opacity: 0, x: -16 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.07, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              variants={slideLeft}
               className="group grid grid-cols-[3rem_1fr] md:grid-cols-[3rem_14rem_1fr] items-start gap-4 md:gap-10 py-7 border-t border-border last:border-b hover:bg-foreground/3 dark:hover:bg-white/3 transition-colors duration-200 px-2 -mx-2"
             >
               {/* Number */}
@@ -99,7 +102,7 @@ export function Process() {
               </p>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

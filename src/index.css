@@ -48,7 +48,7 @@
 }
 
 html {
-  scroll-behavior: smooth;
+  /* scroll-behavior: smooth removed — Lenis handles smooth scroll; having both causes double-smoothing */
 }
 
 body {

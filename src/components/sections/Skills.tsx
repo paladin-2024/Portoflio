@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { CodeEditorWindow } from '../ui/CodeEditorWindow';
+import { fadeUp, scaleIn, stagger } from '../../lib/animations';
 
 /* ─── Tech data grouped by category ────────────────────────── */
 const categories = [
@@ -46,8 +47,14 @@ export function Skills() {
       <div className="container mx-auto px-6 md:px-16 max-w-[1600px]">
 
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16">
-          <div>
+        <motion.div
+          variants={stagger(0.1)}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: '-60px' }}
+          className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16"
+        >
+          <motion.div variants={fadeUp}>
             <p className="font-mono text-[10px] uppercase tracking-[0.35em] text-white/40 mb-3">
               My Stack
             </p>
@@ -57,21 +64,25 @@ export function Skills() {
             >
               Technologies.
             </h2>
-          </div>
-          <p className="max-w-xs text-sm text-white/40 md:text-right leading-relaxed">
+          </motion.div>
+          <motion.p variants={fadeUp} className="max-w-xs text-sm text-white/40 md:text-right leading-relaxed">
             Built on Linux. Deployed with Docker.<br />Monitored with htop.
-          </p>
-        </div>
+          </motion.p>
+        </motion.div>
 
         {/* ── Tech grid ─────────────────────────────────────────── */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-px mb-px" style={{ background: 'rgba(240,237,231,0.06)' }}>
-          {categories.map((cat, ci) => (
+        <motion.div
+          variants={stagger(0.1)}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: '-60px' }}
+          className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-px mb-px"
+          style={{ background: 'rgba(240,237,231,0.06)' }}
+        >
+          {categories.map((cat) => (
             <motion.div
               key={cat.label}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: ci * 0.08, ease: [0.16, 1, 0.3, 1] }}
+              variants={scaleIn}
               style={{ background: '#0f0d0a' }}
             >
               {/* Top accent bar — orange on Mobile Dev, hairline on others */}
@@ -127,17 +138,21 @@ export function Skills() {
               })}
             </motion.div>
           ))}
-        </div>
+        </motion.div>
 
         {/* ── Bottom panels: neofetch + code editor ─────────────── */}
-        <div className="grid md:grid-cols-2 gap-px mt-px" style={{ background: 'rgba(240,237,231,0.06)' }}>
+        <motion.div
+          variants={stagger(0.12)}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: '-40px' }}
+          className="grid md:grid-cols-2 gap-px mt-px"
+          style={{ background: 'rgba(240,237,231,0.06)' }}
+        >
 
           {/* Left: neofetch */}
           <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            variants={fadeUp}
             className="terminal"
           >
             <div className="mb-3">
@@ -166,16 +181,13 @@ export function Skills() {
 
           {/* Right: IDE code editor window */}
           <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+            variants={fadeUp}
             style={{ background: '#0a0908', minHeight: 340 }}
           >
             <CodeEditorWindow />
           </motion.div>
 
-        </div>
+        </motion.div>
       </div>
     </section>
   );

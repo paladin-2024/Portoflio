@@ -4,6 +4,7 @@ import { Download, Terminal } from 'lucide-react';
 import { Button } from '../ui/button';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { fadeUp, stagger } from '../../lib/animations';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -33,20 +34,12 @@ export function About() {
     const h = headingRef.current;
     if (!img || !h) return;
 
-    // Grayscale → color on scroll entry
-    gsap.fromTo(img,
-      { filter: 'grayscale(1) contrast(1.1)' },
-      { filter: 'grayscale(0) contrast(1)', duration: 1.2, ease: 'power2.out',
-        scrollTrigger: { trigger: img, start: 'top 75%', once: true } }
-    );
-    // Heading clip-path reveal
-    gsap.fromTo(h,
-      { clipPath: 'inset(100% 0 0 0)' },
-      { clipPath: 'inset(0% 0 0 0)', duration: 0.9, ease: 'power3.out',
-        scrollTrigger: { trigger: h, start: 'top 85%', once: true } }
-    );
+    const tImg = ScrollTrigger.create({ trigger: img, start: 'top 75%', once: true,
+      onEnter: () => gsap.fromTo(img, { filter: 'grayscale(1) contrast(1.1)' }, { filter: 'grayscale(0) contrast(1)', duration: 1.2, ease: 'power2.out' }) });
+    const tH = ScrollTrigger.create({ trigger: h, start: 'top 85%', once: true,
+      onEnter: () => gsap.fromTo(h, { clipPath: 'inset(100% 0 0 0)' }, { clipPath: 'inset(0% 0 0 0)', duration: 0.9, ease: 'power3.out' }) });
 
-    return () => ScrollTrigger.getAll().forEach(t => t.kill());
+    return () => { tImg.kill(); tH.kill(); };
   }, []);
 
   return (
@@ -142,14 +135,17 @@ export function About() {
             </div>
 
             {/* Timeline */}
-            <div className="space-y-0 mb-10">
+            <motion.div
+              variants={stagger(0.1)}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, margin: '-40px' }}
+              className="space-y-0 mb-10"
+            >
               {timeline.map((entry, i) => (
                 <motion.div
                   key={i}
-                  initial={{ opacity: 0, y: 8 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.07 }}
+                  variants={fadeUp}
                   className="flex gap-6 py-4 border-t border-border last:border-b group hover:bg-foreground/3 dark:hover:bg-white/3 transition-colors px-2 -mx-2"
                 >
                   <span className="font-mono text-[10px] text-muted-foreground/40 shrink-0 pt-0.5">
@@ -161,7 +157,7 @@ export function About() {
                   </div>
                 </motion.div>
               ))}
-            </div>
+            </motion.div>
 
             {/* CV button */}
             <a href="/cv/nzabanita-caleb-cv.pdf" download>

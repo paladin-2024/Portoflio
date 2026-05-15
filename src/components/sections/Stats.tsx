@@ -44,10 +44,10 @@ function Stat({ value, suffix, label, sub, index }: StatProps) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
+      initial={{ opacity: 0, y: 56 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ delay: index * 0.1, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+      viewport={{ once: true, margin: '-40px' }}
+      transition={{ delay: index * 0.12, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
       className="relative flex flex-col justify-between p-8 md:p-10 border-b md:border-b-0 md:border-r border-white/[0.08] last:border-0 group hover:bg-white/[0.03] transition-colors duration-300"
     >
       {/* Index */}

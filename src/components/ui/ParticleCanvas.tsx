@@ -129,7 +129,7 @@ export function ParticleCanvas() {
     <canvas
       ref={canvasRef}
       className="absolute inset-0 w-full h-full"
-      style={{ zIndex: 0 }}
+      style={{ zIndex: 0, willChange: 'transform', transform: 'translateZ(0)' }}
       aria-hidden="true"
     />
   );

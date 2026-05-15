@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Server, Globe, Brain, Smartphone, ArrowUpRight } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { fadeUp, stagger } from '../../lib/animations';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -46,18 +47,12 @@ export function Services() {
     const b = bleedRef.current;
     if (!h || !b) return;
 
-    gsap.fromTo(h,
-      { clipPath: 'inset(100% 0 0 0)' },
-      { clipPath: 'inset(0% 0 0 0)', duration: 0.9, ease: 'power3.out',
-        scrollTrigger: { trigger: h, start: 'top 85%', once: true } }
-    );
-    gsap.fromTo(b,
-      { x: 80, opacity: 0 },
-      { x: 0, opacity: 1, duration: 0.8, ease: 'power3.out',
-        scrollTrigger: { trigger: b, start: 'top 85%', once: true } }
-    );
+    const tH = ScrollTrigger.create({ trigger: h, start: 'top 85%', once: true,
+      onEnter: () => gsap.fromTo(h, { clipPath: 'inset(100% 0 0 0)' }, { clipPath: 'inset(0% 0 0 0)', duration: 0.9, ease: 'power3.out' }) });
+    const tB = ScrollTrigger.create({ trigger: b, start: 'top 85%', once: true,
+      onEnter: () => gsap.fromTo(b, { x: 80, opacity: 0 }, { x: 0, opacity: 1, duration: 0.8, ease: 'power3.out' }) });
 
-    return () => ScrollTrigger.getAll().forEach(t => t.kill());
+    return () => { tH.kill(); tB.kill(); };
   }, []);
 
   return (
@@ -97,16 +92,19 @@ export function Services() {
         </div>
 
         {/* Cards grid */}
-        <div className="grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-border border border-border">
-          {services.map((svc, i) => {
+        <motion.div
+          variants={stagger(0.13)}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: '-60px' }}
+          className="grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-border border border-border"
+        >
+          {services.map((svc) => {
             const Icon = svc.icon;
             return (
               <motion.div
                 key={svc.num}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.08, duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+                variants={fadeUp}
                 className="group relative p-8 md:p-10 bg-background hover:bg-foreground transition-colors duration-300 overflow-hidden"
               >
                 {/* Top row */}
@@ -148,7 +146,7 @@ export function Services() {
               </motion.div>
             );
           })}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

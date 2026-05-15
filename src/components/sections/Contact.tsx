@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Send, Mail, MessageCircle, Phone, MapPin, Code2, Globe, X } from 'lucide-react';
 import { Button } from '../ui/button';
+import { fadeUp, slideLeft, slideRight, stagger } from '../../lib/animations';
 
 export function Contact() {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
@@ -74,10 +75,10 @@ export function Contact() {
         <div className="grid lg:grid-cols-2 gap-12">
           {/* Left — Contact info */}
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            variants={slideLeft}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: '-50px' }}
           >
             <p className="text-background/70 leading-relaxed mb-10 max-w-md">
               Have a project in mind, need a backend built, or want to explore AI integration?
@@ -155,10 +156,10 @@ export function Contact() {
 
           {/* Right — Form */}
           <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.1 }}
+            variants={slideRight}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: '-50px' }}
           >
             {status === 'sent' ? (
               <div className="flex flex-col items-start justify-center h-full py-16">
