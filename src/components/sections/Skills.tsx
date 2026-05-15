@@ -59,7 +59,7 @@ export function Skills() {
               My Stack
             </p>
             <h2
-              className="font-syne font-extrabold text-white"
+              className="font-notch text-white"
               style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)', lineHeight: 0.9 }}
             >
               Technologies.

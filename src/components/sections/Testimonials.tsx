@@ -40,7 +40,7 @@ export function Testimonials() {
         {/* Header */}
         <div className="relative mb-16 overflow-hidden">
           <span
-            className="font-syne font-extrabold absolute top-0 right-0 translate-x-1/4 select-none pointer-events-none whitespace-nowrap"
+            className="font-notch absolute top-0 right-0 translate-x-1/4 select-none pointer-events-none whitespace-nowrap"
             style={{
               fontSize: 'clamp(4rem, 12vw, 10rem)',
               lineHeight: 0.9,
@@ -64,7 +64,7 @@ export function Testimonials() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="font-syne font-extrabold text-background relative z-10"
+            className="font-notch text-background relative z-10"
             style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)', lineHeight: 0.9 }}
           >
             What They Say.

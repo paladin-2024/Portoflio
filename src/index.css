@@ -107,9 +107,15 @@ body::after {
   width: max-content;
 }
 
+/* ─── Stack Sans Notch — display headings ─── */
+.font-notch {
+  font-family: 'Stack Sans Notch', sans-serif;
+  font-weight: 800;
+}
+
 /* ─── V2: Section label bleed ─── */
 .section-bleed-label {
-  font-family: 'Syne', sans-serif;
+  font-family: 'Stack Sans Notch', 'Syne', sans-serif;
   font-weight: 800;
   font-size: clamp(4rem, 12vw, 10rem);
   line-height: 0.9;

@@ -102,7 +102,7 @@ export function About() {
             </p>
             <h2
               ref={headingRef}
-              className="font-syne font-extrabold text-foreground mb-6"
+              className="font-notch text-foreground mb-6"
               style={{ fontSize: 'clamp(2.2rem, 4vw, 3.8rem)', lineHeight: 0.92 }}
             >
               Nzabanita<br />Caleb.

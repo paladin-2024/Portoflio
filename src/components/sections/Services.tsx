@@ -77,7 +77,7 @@ export function Services() {
               </p>
               <h2
                 ref={headingRef}
-                className="font-syne font-extrabold text-foreground"
+                className="font-notch text-foreground"
                 style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)', lineHeight: 0.9 }}
               >
                 Services.

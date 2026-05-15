@@ -41,7 +41,7 @@ export function Contact() {
         {/* Header */}
         <div className="relative mb-16 overflow-hidden">
           <span
-            className="font-syne font-extrabold absolute top-0 right-0 translate-x-1/4 select-none pointer-events-none whitespace-nowrap"
+            className="font-notch absolute top-0 right-0 translate-x-1/4 select-none pointer-events-none whitespace-nowrap"
             style={{
               fontSize: 'clamp(4rem, 12vw, 10rem)',
               lineHeight: 0.9,
@@ -65,7 +65,7 @@ export function Contact() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="font-syne font-extrabold text-background relative z-10"
+            className="font-notch text-background relative z-10"
             style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)' }}
           >
             Let's Build.
@@ -164,7 +164,7 @@ export function Contact() {
             {status === 'sent' ? (
               <div className="flex flex-col items-start justify-center h-full py-16">
                 <span className="text-accent font-mono text-xs uppercase tracking-wider mb-4">Message sent</span>
-                <h3 className="font-syne font-extrabold text-background text-3xl mb-4">Got it.</h3>
+                <h3 className="font-notch text-background text-3xl mb-4">Got it.</h3>
                 <p className="text-background/60 text-sm">I'll get back to you within 24 hours.</p>
               </div>
             ) : (

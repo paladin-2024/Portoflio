@@ -130,8 +130,8 @@ export function Projects() {
               My Work
             </p>
             <h2
-              className="font-syne font-extrabold text-foreground"
-              style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)', lineHeight: 0.9 }}
+              className="font-notch text-foreground"
+            style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)', lineHeight: 0.9 }}
             >
               Featured Projects.
             </h2>
@@ -286,7 +286,7 @@ export function Projects() {
               <div className="p-8">
                 <p className="font-mono text-[11px] text-muted-foreground tracking-[0.25em] mb-2">{selected.num}</p>
                 <h3
-                  className="font-syne font-extrabold text-foreground mb-2"
+                  className="font-notch text-foreground mb-2"
                   style={{ fontSize: 'clamp(1.5rem, 3vw, 2rem)', lineHeight: 1 }}
                 >
                   {selected.title}
