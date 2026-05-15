@@ -73,6 +73,23 @@ const projects = [
     url: 'https://kantariciah.org',
     featured: false,
   },
+  {
+    num: '05',
+    title: 'Smart Energy Monitor',
+    shortDesc: 'IoT power monitoring with AI insights — hardware + mobile.',
+    desc: 'End-to-end IoT energy monitoring system. An ESP32 microcontroller reads live power, current and voltage via a sensor and displays them on a local TFT screen. Data streams to ThingSpeak cloud, feeding a Flutter mobile app with real-time dashboards, historical charts, AI-generated consumption predictions and smart alerts.',
+    metric: 'Real-time IoT · AI-powered insights',
+    highlights: [
+      'ESP32 + TFT display: live power, current & voltage readouts',
+      'Flutter app: Dashboard, History, AI Insights & Alerts tabs',
+      'ThingSpeak cloud integration for live data streaming',
+      'AI-generated energy predictions — kWh/day, week & month',
+    ],
+    tags: ['ESP32', 'Flutter', 'ThingSpeak', 'IoT', 'AI/ML'],
+    image: '/assets/projects/energy-monitor.png',
+    url: '#',
+    featured: false,
+  },
 ];
 
 export function Projects() {
