@@ -87,6 +87,7 @@ const projects = [
     ],
     tags: ['ESP32', 'Flutter', 'ThingSpeak', 'IoT', 'AI/ML'],
     image: '/assets/projects/energy-monitor.png',
+    images: ['/assets/projects/energy-monitor.png', '/assets/projects/energy-monitor-app.png'],
     url: '#',
     featured: false,
   },
@@ -199,13 +200,28 @@ export function Projects() {
           >
             {/* Image */}
             <div className="relative overflow-hidden" style={{ aspectRatio: '16/9' }}>
-              <img
-                src={project.image}
-                alt={project.title}
-                className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
-                loading="lazy"
-                draggable={false}
-              />
+              {'images' in project && project.images ? (
+                <div className="flex h-full gap-px">
+                  {project.images.map((src, idx) => (
+                    <img
+                      key={idx}
+                      src={src}
+                      alt={`${project.title} ${idx === 0 ? 'hardware' : 'app'}`}
+                      className="w-1/2 h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                      loading="lazy"
+                      draggable={false}
+                    />
+                  ))}
+                </div>
+              ) : (
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                  loading="lazy"
+                  draggable={false}
+                />
+              )}
               {/* View details overlay */}
               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/50 transition-colors duration-300 flex items-center justify-center">
                 <span className="font-mono text-[12px] uppercase tracking-widest text-black bg-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 px-3 py-1.5">
@@ -295,19 +311,38 @@ export function Projects() {
                 <X className="h-4 w-4" />
               </button>
 
-              {/* Image */}
-              <div className="relative overflow-hidden" style={{ aspectRatio: '16/9' }}>
-                <img
-                  src={selected.image}
-                  alt={selected.title}
-                  className="w-full h-full object-cover object-top"
-                />
-                {selected.featured && (
-                  <span className="absolute top-4 left-4 font-mono text-[11px] uppercase tracking-widest bg-accent text-white px-2.5 py-1">
-                    Featured
-                  </span>
-                )}
-              </div>
+              {/* Image(s) */}
+              {'images' in selected && selected.images ? (
+                <div className="flex gap-px" style={{ aspectRatio: '16/9' }}>
+                  <div className="w-1/2 overflow-hidden">
+                    <img
+                      src={selected.images[0]}
+                      alt={`${selected.title} — hardware`}
+                      className="w-full h-full object-cover object-top"
+                    />
+                  </div>
+                  <div className="w-1/2 overflow-hidden">
+                    <img
+                      src={selected.images[1]}
+                      alt={`${selected.title} — app`}
+                      className="w-full h-full object-cover object-top"
+                    />
+                  </div>
+                </div>
+              ) : (
+                <div className="relative overflow-hidden" style={{ aspectRatio: '16/9' }}>
+                  <img
+                    src={selected.image}
+                    alt={selected.title}
+                    className="w-full h-full object-cover object-top"
+                  />
+                  {selected.featured && (
+                    <span className="absolute top-4 left-4 font-mono text-[11px] uppercase tracking-widest bg-accent text-white px-2.5 py-1">
+                      Featured
+                    </span>
+                  )}
+                </div>
+              )}
 
               {/* Content */}
               <div className="p-8">
