@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Send, Mail, MessageCircle, Phone, MapPin, Code2, Globe, X } from 'lucide-react';
 import { Button } from '../ui/button';
-import { fadeUp, slideLeft, slideRight, stagger } from '../../lib/animations';
+import { slideLeft, slideRight } from '../../lib/animations';
 
 export function Contact() {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
