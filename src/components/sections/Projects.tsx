@@ -19,6 +19,7 @@ const projects = [
     ],
     tags: ['React.js', 'Tailwind', 'Three.js', 'MongoDB', 'Node.js'],
     image: '/assets/projects/cyberteks.png',
+    gallery: [] as string[],
     url: 'https://www.cyberteks-it.com/',
     featured: true,
   },
@@ -36,6 +37,7 @@ const projects = [
     ],
     tags: ['React', 'Firebase', 'TypeScript'],
     image: '/assets/projects/paladincar.png',
+    gallery: [] as string[],
     url: 'https://paladincar.netlify.app/',
     featured: false,
   },
@@ -53,6 +55,7 @@ const projects = [
     ],
     tags: ['React', 'PWA', 'GSAP', 'MongoDB', 'ShadCN'],
     image: '/assets/projects/promptpal.png',
+    gallery: [] as string[],
     url: 'https://prompt-pal-amber.vercel.app/',
     featured: false,
   },
@@ -70,6 +73,7 @@ const projects = [
     ],
     tags: ['React', 'TypeScript', 'TailwindCSS'],
     image: '/assets/projects/kantariciah.png',
+    gallery: [] as string[],
     url: 'https://kantariciah.org',
     featured: false,
   },
@@ -87,7 +91,13 @@ const projects = [
     ],
     tags: ['Flutter', 'React', 'Node.js', 'Supabase', 'Vercel'],
     image: '/assets/projects/jonglei-admin.png',
-    images: ['/assets/projects/jonglei-admin.png', '/assets/projects/jonglei-mobile.png'],
+    gallery: [
+      '/assets/projects/jonglei-mobile.png',
+      '/assets/projects/jonglei-prices.png',
+      '/assets/projects/jonglei-analytics.png',
+      '/assets/projects/jonglei-clearance.png',
+      '/assets/projects/jonglei-mobile-market.png',
+    ],
     url: 'https://jonglei-fish-hub.vercel.app',
     featured: false,
   },
@@ -105,7 +115,13 @@ const projects = [
     ],
     tags: ['Flutter', 'Gemini AI', 'Firebase', 'Google Books API'],
     image: '/assets/projects/iuea-library.png',
-    images: ['/assets/projects/iuea-library.png', '/assets/projects/iuea-library-mobile.png'],
+    gallery: [
+      '/assets/projects/iuea-library-mobile.png',
+      '/assets/projects/iuea-books.png',
+      '/assets/projects/iuea-book-detail.png',
+      '/assets/projects/iuea-podcasts.png',
+      '/assets/projects/iuea-tts.png',
+    ],
     url: '#',
     featured: false,
   },
@@ -123,7 +139,11 @@ const projects = [
     ],
     tags: ['ESP32', 'Flutter', 'ThingSpeak', 'IoT', 'AI/ML'],
     image: '/assets/projects/energy-monitor.png',
-    images: ['/assets/projects/energy-monitor.png', '/assets/projects/energy-monitor-app.png'],
+    gallery: [
+      '/assets/projects/energy-monitor-app.png',
+      '/assets/projects/energy-monitor-history.png',
+      '/assets/projects/energy-monitor-ai.png',
+    ],
     url: '#',
     featured: false,
   },
@@ -194,7 +214,7 @@ export function Projects() {
             </p>
             <h2
               className="font-notch text-foreground"
-            style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)', lineHeight: 0.9 }}
+              style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)', lineHeight: 0.9 }}
             >
               Featured Projects.
             </h2>
@@ -234,31 +254,15 @@ export function Projects() {
               cursor: dragging ? 'grabbing' : 'pointer',
             }}
           >
-            {/* Image */}
+            {/* Single card image */}
             <div className="relative overflow-hidden" style={{ aspectRatio: '16/9' }}>
-              {'images' in project && project.images ? (
-                <div className="flex h-full gap-px">
-                  {project.images.map((src, idx) => (
-                    <img
-                      key={idx}
-                      src={src}
-                      alt={`${project.title} ${idx === 0 ? 'hardware' : 'app'}`}
-                      className="w-1/2 h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
-                      loading="lazy"
-                      draggable={false}
-                    />
-                  ))}
-                </div>
-              ) : (
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
-                  loading="lazy"
-                  draggable={false}
-                />
-              )}
-              {/* View details overlay */}
+              <img
+                src={project.image}
+                alt={project.title}
+                className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                loading="lazy"
+                draggable={false}
+              />
               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/50 transition-colors duration-300 flex items-center justify-center">
                 <span className="font-mono text-[12px] uppercase tracking-widest text-black bg-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 px-3 py-1.5">
                   View Details
@@ -347,38 +351,19 @@ export function Projects() {
                 <X className="h-4 w-4" />
               </button>
 
-              {/* Image(s) */}
-              {'images' in selected && selected.images ? (
-                <div className="flex gap-px" style={{ aspectRatio: '16/9' }}>
-                  <div className="w-1/2 overflow-hidden">
-                    <img
-                      src={selected.images[0]}
-                      alt={`${selected.title} — hardware`}
-                      className="w-full h-full object-cover object-top"
-                    />
-                  </div>
-                  <div className="w-1/2 overflow-hidden">
-                    <img
-                      src={selected.images[1]}
-                      alt={`${selected.title} — app`}
-                      className="w-full h-full object-cover object-top"
-                    />
-                  </div>
-                </div>
-              ) : (
-                <div className="relative overflow-hidden" style={{ aspectRatio: '16/9' }}>
-                  <img
-                    src={selected.image}
-                    alt={selected.title}
-                    className="w-full h-full object-cover object-top"
-                  />
-                  {selected.featured && (
-                    <span className="absolute top-4 left-4 font-mono text-[11px] uppercase tracking-widest bg-accent text-white px-2.5 py-1">
-                      Featured
-                    </span>
-                  )}
-                </div>
-              )}
+              {/* Hero image */}
+              <div className="relative overflow-hidden" style={{ aspectRatio: '16/9' }}>
+                <img
+                  src={selected.image}
+                  alt={selected.title}
+                  className="w-full h-full object-cover object-top"
+                />
+                {selected.featured && (
+                  <span className="absolute top-4 left-4 font-mono text-[11px] uppercase tracking-widest bg-accent text-white px-2.5 py-1">
+                    Featured
+                  </span>
+                )}
+              </div>
 
               {/* Content */}
               <div className="p-8">
@@ -428,6 +413,29 @@ export function Projects() {
                   >
                     Visit Live Site <ExternalLink className="h-3 w-3" />
                   </a>
+                )}
+
+                {/* Screenshot gallery */}
+                {selected.gallery.length > 0 && (
+                  <div className="mt-10 pt-8 border-t border-border">
+                    <p className="font-mono text-[12px] uppercase tracking-wider text-muted-foreground/50 mb-4">Screenshots</p>
+                    <div className="grid grid-cols-3 gap-1.5">
+                      {selected.gallery.map((src, i) => (
+                        <div
+                          key={i}
+                          className="overflow-hidden bg-muted"
+                          style={{ height: '140px' }}
+                        >
+                          <img
+                            src={src}
+                            alt={`${selected.title} screenshot ${i + 1}`}
+                            className="w-full h-full object-cover object-top"
+                            loading="lazy"
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 )}
               </div>
             </motion.div>
