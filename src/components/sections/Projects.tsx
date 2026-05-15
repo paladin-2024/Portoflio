@@ -2,6 +2,7 @@ import { useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ExternalLink, X } from 'lucide-react';
 import { easeOut } from '../../lib/animations';
+import { lenis } from '../../lib/lenis';
 
 const projects = [
   {
@@ -85,10 +86,12 @@ export function Projects() {
   function openModal(project: typeof projects[0]) {
     setSelected(project);
     document.body.style.overflow = 'hidden';
+    lenis.stop();
   }
   function closeModal() {
     setSelected(null);
     document.body.style.overflow = '';
+    lenis.start();
   }
 
   function onMouseDown(e: React.MouseEvent) {
