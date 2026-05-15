@@ -191,7 +191,7 @@ Each card:
 |---|---|
 | Jonglei Fish Hub | "Caleb built our entire platform from scratch in record time. Clean architecture, great communication, and he genuinely understood what our business needed. Not just a developer — a problem solver." |
 | Cyberteks-IT | "Working with Nzabanita on Cyberteks was one of the best technical decisions we made. He brought depth and ideas we hadn't even considered. The site performs brilliantly." |
-| Kantarichian | **TBD — owner to provide quote from client** |
+| Kantarichian | "The work was stunning — I honestly didn't expect a product this polished in such a short time. Caleb exceeded every expectation." |
 
 ---
 
