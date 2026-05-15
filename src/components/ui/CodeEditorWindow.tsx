@@ -14,38 +14,22 @@ type Line = React.ReactNode;
 
 const lines: Line[] = [
   <>{cmt('// UserController.java')}</>,
-  <>{kw('package')} {ty('com.nzabanita.api.controller')}{pl(';')}</>,
-  <></>,
-  <>{kw('import')} {ty('org.springframework.web.bind.annotation.*')}{pl(';')}</>,
-  <>{kw('import')} {ty('org.springframework.http.ResponseEntity')}{pl(';')}</>,
-  <>{kw('import')} {ty('lombok.RequiredArgsConstructor')}{pl(';')}</>,
-  <></>,
-  <>{an('@RestController')}</>,
-  <>{an('@RequestMapping')}{pl('(')}{str('"/api/v1/users"')}{pl(')')}</>,
-  <>{an('@RequiredArgsConstructor')}</>,
+  <>{an('@RestController')} {an('@RequestMapping')}{pl('(')}{str('"/api/v1/users"')}{pl(')')}</>,
   <>{kw('public class')} {ty('UserController')} {pl('{')}</>,
+  <>{pl('  ')}{kw('private final')} {ty('UserService')} {ty('userService')}{pl(';')}</>,
+  <>{pl('  ')}{kw('private final')} {ty('JwtService')}  {ty('jwtService')}{pl(';')}</>,
   <></>,
-  <>{pl('    ')}{kw('private final')} {ty('UserService')} {ty('userService')}{pl(';')}</>,
-  <>{pl('    ')}{kw('private final')} {ty('JwtService')} {ty('jwtService')}{pl(';')}</>,
+  <>{pl('  ')}{an('@PostMapping')}{pl('(')}{str('"/auth/login"')}{pl(')')}</>,
+  <>{pl('  ')}{kw('public')} {ty('ResponseEntity')}{pl('<')}{ty('AuthResponse')}{pl('>')} {fn('login')}{pl('(')}{an('@RequestBody')} {ty('LoginRequest')} {ty('req')}{pl(') {')}</>,
+  <>{pl('    ')}{ty('User')} {ty('user')} {pl('=')} {ty('userService')}{pl('.')}{fn('authenticate')}{pl('(')}{ty('req')}{pl('.')}{fn('email')}{pl('(), ')}{ty('req')}{pl('.')}{fn('password')}{pl('());')}</>,
+  <>{pl('    ')}{ty('String')} {ty('token')} {pl('=')} {ty('jwtService')}{pl('.')}{fn('generateToken')}{pl('(')}{ty('user')}{pl(');')}</>,
+  <>{pl('    ')}{kw('return')} {ty('ResponseEntity')}{pl('.')}{fn('ok')}{pl('(')}{kw('new')} {fn('AuthResponse')}{pl('(')}{ty('token')}{pl(', ')}{ty('user')}{pl('.')}{fn('getRole')}{pl('()));')}</>,
+  <>{pl('  }')}</>,
   <></>,
-  <>{pl('    ')}{an('@PostMapping')}{pl('(')}{str('"/auth/login"')}{pl(')')}</>,
-  <>{pl('    ')}{kw('public')} {ty('ResponseEntity')}{pl('<')}{ty('AuthResponse')}{pl('>')} {fn('login')}{pl('(')}</>,
-  <>{pl('            ')}{an('@RequestBody')} {ty('LoginRequest')} {ty('request')}{pl(') {')}</>,
-  <>{pl('        ')}{ty('User')} {ty('user')} {pl('=')} {ty('userService')}{pl('.')}{fn('authenticate')}{pl('(')}</>,
-  <>{pl('            ')}{ty('request')}{pl('.')}{fn('email')}{pl('(), ')}{ty('request')}{pl('.')}{fn('password')}{pl('()')}</>,
-  <>{pl('        );')}</>,
-  <>{pl('        ')}{ty('String')} {ty('token')} {pl('=')} {ty('jwtService')}{pl('.')}{fn('generateToken')}{pl('(')}{ty('user')}{pl(');')}</>,
-  <>{pl('        ')}{kw('return')} {ty('ResponseEntity')}{pl('.')}{fn('ok')}{pl('(')}</>,
-  <>{pl('            ')}{kw('new')} {fn('AuthResponse')}{pl('(')}{ty('token')}{pl(', ')}{ty('user')}{pl('.')}{fn('getRole')}{pl('())')}</>,
-  <>{pl('        );')}</>,
-  <>{pl('    }')}</>,
-  <></>,
-  <>{pl('    ')}{an('@GetMapping')}{pl('(')}{str('"/{id}"')}{pl(')')}</>,
-  <>{pl('    ')}{an('@PreAuthorize')}{pl('(')}{str('"hasRole(\'ADMIN\')"')}{pl(')')}</>,
-  <>{pl('    ')}{kw('public')} {ty('ResponseEntity')}{pl('<')}{ty('UserDto')}{pl('>')} {fn('getById')}{pl('(')}</>,
-  <>{pl('            ')}{an('@PathVariable')} {ty('Long')} {ty('id')}{pl(') {')}</>,
-  <>{pl('        ')}{kw('return')} {ty('ResponseEntity')}{pl('.')}{fn('ok')}{pl('(')}{ty('userService')}{pl('.')}{fn('findById')}{pl('(')}{ty('id')}{pl('));')}</>,
-  <>{pl('    }')}</>,
+  <>{pl('  ')}{an('@GetMapping')}{pl('(')}{str('"/{id}"')}{pl(')')} {an('@PreAuthorize')}{pl('(')}{str('"hasRole(\'ADMIN\')"')}{pl(')')}</>,
+  <>{pl('  ')}{kw('public')} {ty('ResponseEntity')}{pl('<')}{ty('UserDto')}{pl('>')} {fn('getById')}{pl('(')}{an('@PathVariable')} {ty('Long')} {ty('id')}{pl(') {')}</>,
+  <>{pl('    ')}{kw('return')} {ty('ResponseEntity')}{pl('.')}{fn('ok')}{pl('(')}{ty('userService')}{pl('.')}{fn('findById')}{pl('(')}{ty('id')}{pl('));')}</>,
+  <>{pl('  }')}</>,
   <>{pl('}')}</>,
 ];
 
@@ -111,8 +95,8 @@ export function CodeEditorWindow() {
       <div style={{ display: 'flex', flex: 1, overflow: 'auto' }}>
         <div
           style={{
-            padding: '16px 0', minWidth: 40, textAlign: 'right',
-            paddingRight: 14, paddingLeft: 8,
+            padding: '16px 0', minWidth: 36, textAlign: 'right',
+            paddingRight: 12, paddingLeft: 8,
             color: 'rgba(240,237,231,0.18)', userSelect: 'none',
             borderRight: '1px solid rgba(240,237,231,0.05)', flexShrink: 0,
           }}
@@ -121,7 +105,7 @@ export function CodeEditorWindow() {
             <div key={i} style={{ height: '1.65em' }}>{i + 1}</div>
           ))}
         </div>
-        <div style={{ padding: '16px 20px', flex: 1, overflowX: 'auto', whiteSpace: 'nowrap' }}>
+        <div style={{ padding: '16px 16px', flex: 1, overflowX: 'auto', whiteSpace: 'nowrap' }}>
           {lines.map((line, i) => (
             <div key={i} style={{ height: '1.65em' }}>{line}</div>
           ))}
@@ -139,7 +123,7 @@ export function CodeEditorWindow() {
           main ⎇ — Java · Spring Boot
         </span>
         <span style={{ color: 'rgba(255,255,255,0.7)', fontSize: '10px', fontFamily: '"JetBrains Mono", monospace' }}>
-          Ln 18, Col 1
+          Ln 15, Col 1
         </span>
       </div>
     </div>

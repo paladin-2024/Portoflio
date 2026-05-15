@@ -69,7 +69,7 @@ const projects = [
     ],
     tags: ['React', 'TypeScript', 'TailwindCSS'],
     image: '/assets/projects/kantariciah.png',
-    url: '#',
+    url: 'https://kantariciah.org',
     featured: false,
   },
 ];

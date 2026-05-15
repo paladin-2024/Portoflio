@@ -119,8 +119,8 @@ export function Hero() {
         {/* Big heading — matches reference exactly */}
         <div className="overflow-visible">
           <h1
-            className="font-syne font-extrabold text-foreground leading-[0.87] tracking-tight"
-            style={{ fontSize: 'clamp(3.8rem, 11vw, 10.5rem)' }}
+            className="font-extrabold text-foreground leading-[0.87] tracking-tight"
+            style={{ fontSize: 'clamp(3.8rem, 11vw, 10.5rem)', fontFamily: "'Stack Sans Notch', sans-serif" }}
           >
             <span ref={line1Ref} className="block" style={{ whiteSpace: 'nowrap' }}>
               {'Software Engineer'.split('').map(() => '█').join('')}
