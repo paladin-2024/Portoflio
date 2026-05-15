@@ -17,6 +17,7 @@
     "@studio-freight/lenis": "^1.0.42",
     "@types/gsap": "^3.0.0",
     "@types/three": "^0.183.1",
+    "@vercel/analytics": "^2.0.1",
     "autoprefixer": "^10.4.27",
     "clsx": "^2.1.1",
     "framer-motion": "^12.38.0",

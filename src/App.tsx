@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Analytics } from '@vercel/analytics/react';
 import { ThemeProvider } from './context/theme-provider';
 import { Navigation } from './components/ui/navigation';
 import { Preloader } from './components/ui/Preloader';
 import { ScrollProgress } from './components/ui/ScrollProgress';
 import { FloatingCTA } from './components/ui/FloatingCTA';
 import { Home } from './pages/Home';
+import { NotFound } from './pages/NotFound';
 import './App.css';
 
 function App() {
@@ -22,11 +24,13 @@ function App() {
           <div className="md:pl-14">
             <Routes>
               <Route path="/" element={<Home />} />
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </div>
           <FloatingCTA />
         </div>
       </Router>
+      <Analytics />
     </ThemeProvider>
   );
 }
