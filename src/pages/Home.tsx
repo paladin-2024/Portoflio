@@ -12,8 +12,8 @@ import { Marquee } from '../components/ui/Marquee';
 
 const marqueeItems = [
   'Backend Development', 'React', 'Node.js', 'Robotics',
-  'AI / ML', 'Three.js', 'Mobile Apps', 'PostgreSQL',
-  'Docker', 'TypeScript', 'GSAP', 'Open Source',
+  'AI / ML', 'Spring Boot', 'Flutter', 'MongoDB',
+  'Docker', 'TypeScript', 'Django', 'Open Source',
 ];
 
 export function Home() {

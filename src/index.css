@@ -317,9 +317,9 @@ body::before {
 
 /* ─── Floating CTA pulse animation ─── */
 @keyframes ctaPulse {
-  0%   { box-shadow: 0 0 0 0 rgba(233, 84, 32, 0.5); }
-  70%  { box-shadow: 0 0 0 10px rgba(233, 84, 32, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(233, 84, 32, 0); }
+  0%   { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5); }
+  70%  { box-shadow: 0 0 0 10px rgba(37, 211, 102, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
 }
 
 /* ─── Side nav dot tooltip ─── */

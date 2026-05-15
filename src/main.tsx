@@ -8,10 +8,10 @@ import App from './App.tsx';
 
 gsap.registerPlugin(ScrollTrigger);
 
-// Initialize Lenis smooth scroll
+// Initialize Lenis smooth scroll — lerp mode feels lighter than duration/easing
 const lenis = new Lenis({
-  duration: 0.7,
-  easing: (t) => 1 - Math.pow(1 - t, 3),
+  lerp: 0.1,
+  smoothWheel: true,
 });
 
 // Wire Lenis into GSAP ScrollTrigger

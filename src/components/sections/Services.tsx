@@ -11,8 +11,8 @@ const services = [
     num: '01',
     icon: Server,
     title: 'Backend Development',
-    desc: 'Scalable APIs, microservices, databases and server architecture. Node.js, PostgreSQL, MongoDB, Redis. Built for performance and reliability.',
-    tags: ['Node.js', 'PostgreSQL', 'Redis', 'Docker'],
+    desc: 'Scalable APIs, microservices, databases and server architecture. Node.js, Spring Boot, Django, MongoDB, Redis. Built for performance and reliability.',
+    tags: ['Node.js', 'Spring Boot', 'Django', 'MongoDB', 'Redis'],
   },
   {
     num: '02',
@@ -32,8 +32,8 @@ const services = [
     num: '04',
     icon: Smartphone,
     title: 'Mobile Development',
-    desc: 'Cross-platform mobile apps with React Native, Firebase and offline-first architecture. From idea to App Store.',
-    tags: ['React Native', 'Firebase', 'Expo', 'SQLite'],
+    desc: 'Cross-platform mobile apps with Flutter and Firebase. Beautiful, performant apps backed by MongoDB — from idea to Play Store and App Store.',
+    tags: ['Flutter', 'Firebase', 'MongoDB', 'Dart'],
   },
 ];
 

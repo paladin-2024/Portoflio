@@ -9,11 +9,11 @@ const categories = [
   },
   {
     label: 'Mobile Dev',
-    techs: ['Flutter', 'Dart', 'Kotlin', 'FlutterFlow', 'Java (Android)', 'Android SDK'],
+    techs: ['Flutter', 'Dart', 'Firebase', 'MongoDB', 'FlutterFlow', 'Android SDK'],
   },
   {
     label: 'Backend',
-    techs: ['Node.js', 'Express', 'Java', 'Python', 'MongoDB', 'GraphQL', 'REST APIs', 'WebSockets'],
+    techs: ['Node.js', 'Express', 'Spring Boot', 'Django', 'Python', 'MongoDB', 'GraphQL', 'REST APIs'],
   },
   {
     label: 'Robotics & Hardware',

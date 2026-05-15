@@ -27,9 +27,10 @@ export function FloatingCTA() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Book a call on WhatsApp"
-      className="fixed bottom-6 right-6 z-50 flex items-center gap-2 bg-accent text-white font-mono text-[9px] uppercase tracking-[0.15em] px-4 py-3 transition-opacity duration-300"
+      className="fixed bottom-6 right-6 z-50 flex items-center gap-2 text-white font-mono text-[9px] uppercase tracking-[0.15em] px-4 py-3 transition-opacity duration-300"
       style={{
         borderRadius: '2px',
+        background: '#25D366',
         animation: 'ctaPulse 2s ease-in-out infinite',
       }}
     >

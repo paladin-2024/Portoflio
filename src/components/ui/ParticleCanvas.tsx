@@ -20,8 +20,8 @@ export function ParticleCanvas() {
     const isDark = theme === 'dark' || (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
     const baseAlpha = isDark ? 'rgba(240,237,231,' : 'rgba(15,13,10,';
     const ORANGE = '#E95420';
-    const PARTICLE_COUNT = 180;
-    const CONNECT_DIST = 90;
+    const PARTICLE_COUNT = 100;
+    const CONNECT_DIST = 100;
     const REPEL_DIST = 80;
     const ORANGE_GLOW_DIST = 120;
 
@@ -29,6 +29,7 @@ export function ParticleCanvas() {
     let W = 0, H = 0;
     let particles: Particle[] = [];
     const mouse = { x: -9999, y: -9999 };
+    let frame = 0;
 
     function resize() {
       W = canvas!.width = canvas!.offsetWidth;
@@ -76,18 +77,24 @@ export function ParticleCanvas() {
         ctx!.fill();
       }
 
-      for (let i = 0; i < particles.length; i++) {
-        for (let j = i + 1; j < particles.length; j++) {
-          const dx = particles[i].x - particles[j].x;
-          const dy = particles[i].y - particles[j].y;
-          const d = Math.sqrt(dx * dx + dy * dy);
-          if (d < CONNECT_DIST) {
-            ctx!.beginPath();
-            ctx!.moveTo(particles[i].x, particles[i].y);
-            ctx!.lineTo(particles[j].x, particles[j].y);
-            ctx!.strokeStyle = `${baseAlpha}${(1 - d / CONNECT_DIST) * 0.1})`;
-            ctx!.lineWidth = 0.5;
-            ctx!.stroke();
+      // Draw connection lines every other frame to halve the O(n²) cost
+      frame++;
+      if (frame % 2 === 0) {
+        const CONNECT_DIST_SQ = CONNECT_DIST * CONNECT_DIST;
+        ctx!.lineWidth = 0.5;
+        for (let i = 0; i < particles.length; i++) {
+          for (let j = i + 1; j < particles.length; j++) {
+            const dx = particles[i].x - particles[j].x;
+            const dy = particles[i].y - particles[j].y;
+            const dSq = dx * dx + dy * dy;
+            if (dSq < CONNECT_DIST_SQ) {
+              const d = Math.sqrt(dSq);
+              ctx!.beginPath();
+              ctx!.moveTo(particles[i].x, particles[i].y);
+              ctx!.lineTo(particles[j].x, particles[j].y);
+              ctx!.strokeStyle = `${baseAlpha}${(1 - d / CONNECT_DIST) * 0.1})`;
+              ctx!.stroke();
+            }
           }
         }
       }
