@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 gsap.registerPlugin(ScrollTrigger);
 
 const stats = [
-  { value: 10, suffix: '+', label: 'Projects\nDelivered',  sub: 'shipped to production' },
+  { value: 15, suffix: '+', label: 'Projects\nDelivered',  sub: 'shipped to production' },
   { value: 3,  suffix: '+', label: 'Years\nExperience',    sub: 'building real systems' },
   { value: 5,  suffix: '+', label: 'Happy\nClients',       sub: 'across East Africa' },
   { value: 2,  suffix: '',  label: 'Robotics\nBuilds',     sub: 'hardware + firmware' },

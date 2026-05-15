@@ -82,6 +82,15 @@ export function Projects() {
   const [dragging, setDragging] = useState(false);
   const [selected, setSelected] = useState<typeof projects[0] | null>(null);
 
+  function openModal(project: typeof projects[0]) {
+    setSelected(project);
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal() {
+    setSelected(null);
+    document.body.style.overflow = '';
+  }
+
   function onMouseDown(e: React.MouseEvent) {
     if (!stripRef.current) return;
     isDragging.current = true;
@@ -99,7 +108,7 @@ export function Projects() {
   }
 
   function handleCardClick(project: typeof projects[0]) {
-    if (!dragging) setSelected(project);
+    if (!dragging) openModal(project);
   }
 
   return (
@@ -238,8 +247,8 @@ export function Projects() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.25 }}
-              onClick={() => setSelected(null)}
-              className="fixed inset-0 bg-black/80 z-50 backdrop-blur-sm"
+              onClick={closeModal}
+              className="fixed inset-0 bg-black/90 z-[200] backdrop-blur-md"
             />
 
             {/* Modal panel */}
@@ -248,11 +257,11 @@ export function Projects() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 32, scale: 0.97 }}
               transition={{ duration: 0.4, ease: easeOut }}
-              className="fixed z-50 inset-x-4 md:inset-x-auto md:w-[660px] md:left-1/2 md:-translate-x-1/2 top-[5vh] bottom-[5vh] overflow-y-auto bg-card border border-border"
+              className="fixed z-[201] inset-x-4 md:inset-x-auto md:w-[660px] md:left-1/2 md:-translate-x-1/2 top-[5vh] bottom-[5vh] overflow-y-auto bg-card border border-border"
             >
               {/* Close */}
               <button
-                onClick={() => setSelected(null)}
+                onClick={closeModal}
                 className="absolute top-4 right-4 z-10 p-2 text-muted-foreground hover:text-foreground transition-colors"
                 aria-label="Close"
               >
