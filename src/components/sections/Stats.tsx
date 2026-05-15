@@ -51,7 +51,7 @@ function Stat({ value, suffix, label, sub, index }: StatProps) {
       className="relative flex flex-col justify-between p-8 md:p-10 border-b md:border-b-0 md:border-r border-white/[0.08] last:border-0 group hover:bg-white/[0.03] transition-colors duration-300"
     >
       {/* Index */}
-      <span className="font-mono text-[9px] text-white/20 uppercase tracking-widest mb-4">
+      <span className="font-mono text-[12px] text-white/20 uppercase tracking-widest mb-4">
         0{index + 1}
       </span>
 
@@ -76,7 +76,7 @@ function Stat({ value, suffix, label, sub, index }: StatProps) {
       <p className="font-syne font-bold text-white/90 text-lg leading-tight whitespace-pre-line mb-1">
         {label}
       </p>
-      <p className="font-mono text-[9px] uppercase tracking-wider text-white/30">
+      <p className="font-mono text-[12px] uppercase tracking-wider text-white/30">
         {sub}
       </p>
 

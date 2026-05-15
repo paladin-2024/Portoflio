@@ -55,7 +55,7 @@ export function Skills() {
           className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16"
         >
           <motion.div variants={fadeUp}>
-            <p className="font-mono text-[10px] uppercase tracking-[0.35em] text-white/40 mb-3">
+            <p className="font-mono text-[13px] uppercase tracking-[0.35em] text-white/40 mb-3">
               My Stack
             </p>
             <h2
@@ -98,7 +98,7 @@ export function Skills() {
                 style={{ borderColor: 'rgba(240,237,231,0.06)' }}
               >
                 <span
-                  className="font-mono text-[9px] uppercase tracking-[0.35em]"
+                  className="font-mono text-[12px] uppercase tracking-[0.35em]"
                   style={{ color: cat.label === 'Mobile Dev' ? '#E95420' : 'rgba(240,237,231,0.3)' }}
                 >
                   {cat.label}
@@ -117,7 +117,7 @@ export function Skills() {
                     }}
                   >
                     <span
-                      className="font-mono text-[10px] shrink-0 transition-colors duration-200"
+                      className="font-mono text-[13px] shrink-0 transition-colors duration-200"
                       style={{ color: 'rgba(240,237,231,0.2)' }}
                     >
                       {num}

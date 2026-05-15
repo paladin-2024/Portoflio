@@ -91,7 +91,7 @@ export function Contact() {
                   <Mail className="h-5 w-5 text-background" />
                 </div>
                 <div>
-                  <p className="text-[10px] font-mono uppercase tracking-wider text-background/40">Email</p>
+                  <p className="text-[13px] font-mono uppercase tracking-wider text-background/40">Email</p>
                   <a href="mailto:cnzabb@gmail.com" className="text-background hover:text-accent transition-colors">
                     cnzabb@gmail.com
                   </a>
@@ -103,7 +103,7 @@ export function Contact() {
                   <MessageCircle className="h-5 w-5 text-background" />
                 </div>
                 <div>
-                  <p className="text-[10px] font-mono uppercase tracking-wider text-background/40">WhatsApp</p>
+                  <p className="text-[13px] font-mono uppercase tracking-wider text-background/40">WhatsApp</p>
                   <a
                     href="https://wa.me/256767579099"
                     target="_blank"
@@ -120,7 +120,7 @@ export function Contact() {
                   <Phone className="h-5 w-5 text-background" />
                 </div>
                 <div>
-                  <p className="text-[10px] font-mono uppercase tracking-wider text-background/40">Calls</p>
+                  <p className="text-[13px] font-mono uppercase tracking-wider text-background/40">Calls</p>
                   <a href="tel:+256767579099" className="text-background hover:text-accent transition-colors">
                     +256 767 579 099
                   </a>
@@ -132,14 +132,14 @@ export function Contact() {
                   <MapPin className="h-5 w-5 text-background" />
                 </div>
                 <div>
-                  <p className="text-[10px] font-mono uppercase tracking-wider text-background/40">Location</p>
+                  <p className="text-[13px] font-mono uppercase tracking-wider text-background/40">Location</p>
                   <p className="text-background">Kampala, Uganda</p>
                 </div>
               </div>
             </div>
 
             <div className="pt-8 mt-8 border-t border-background/10">
-              <p className="text-[10px] font-mono uppercase tracking-wider text-background/40 mb-4">Socials</p>
+              <p className="text-[13px] font-mono uppercase tracking-wider text-background/40 mb-4">Socials</p>
               <div className="flex gap-5">
                 <a href="https://github.com/paladin-2024" target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="text-background/50 hover:text-background transition-colors">
                   <Code2 className="h-5 w-5" />
@@ -170,7 +170,7 @@ export function Contact() {
             ) : (
               <form onSubmit={handleSubmit} className="space-y-5">
                 <div>
-                  <label htmlFor="name" className="block font-mono text-[10px] uppercase tracking-wider text-background/40 mb-2">
+                  <label htmlFor="name" className="block font-mono text-[13px] uppercase tracking-wider text-background/40 mb-2">
                     Name
                   </label>
                   <input
@@ -185,7 +185,7 @@ export function Contact() {
                   />
                 </div>
                 <div>
-                  <label htmlFor="email" className="block font-mono text-[10px] uppercase tracking-wider text-background/40 mb-2">
+                  <label htmlFor="email" className="block font-mono text-[13px] uppercase tracking-wider text-background/40 mb-2">
                     Email
                   </label>
                   <input
@@ -200,7 +200,7 @@ export function Contact() {
                   />
                 </div>
                 <div>
-                  <label htmlFor="message" className="block font-mono text-[10px] uppercase tracking-wider text-background/40 mb-2">
+                  <label htmlFor="message" className="block font-mono text-[13px] uppercase tracking-wider text-background/40 mb-2">
                     Message
                   </label>
                   <textarea

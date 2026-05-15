@@ -49,7 +49,7 @@ export function Process() {
               PROCESS.
             </span>
             <div className="relative z-10">
-              <p className="font-mono text-[10px] uppercase tracking-[0.35em] text-muted-foreground mb-3">
+              <p className="font-mono text-[13px] uppercase tracking-[0.35em] text-muted-foreground mb-3">
                 How I Work
               </p>
               <h2
@@ -79,7 +79,7 @@ export function Process() {
               className="group grid grid-cols-[3rem_1fr] md:grid-cols-[3rem_14rem_1fr] items-start gap-4 md:gap-10 py-7 border-t border-border last:border-b hover:bg-foreground/3 dark:hover:bg-white/3 transition-colors duration-200 px-2 -mx-2"
             >
               {/* Number */}
-              <span className="font-mono text-[10px] text-muted-foreground/40 pt-0.5">
+              <span className="font-mono text-[13px] text-muted-foreground/40 pt-0.5">
                 {step.num}
               </span>
 

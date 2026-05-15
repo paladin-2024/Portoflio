@@ -80,7 +80,7 @@ export function Hero() {
           className="flex items-center gap-2"
         >
           <span className="inline-block w-2 h-2 rounded-full bg-accent" />
-          <span className="font-mono text-[9px] uppercase tracking-[0.3em] text-muted-foreground">
+          <span className="font-mono text-[12px] uppercase tracking-[0.3em] text-muted-foreground">
             Running Ubuntu 24.04 LTS
           </span>
         </motion.div>
@@ -149,13 +149,13 @@ export function Hero() {
             <div className="flex items-center gap-6">
               <button
                 onClick={() => scrollTo('projects')}
-                className="btn-brutal-filled font-mono text-[10px] tracking-widest uppercase px-7 py-3"
+                className="btn-brutal-filled font-mono text-[13px] tracking-widest uppercase px-7 py-3"
               >
                 View Work
               </button>
               <button
                 onClick={() => scrollTo('contact')}
-                className="btn-brutal font-mono text-[10px] tracking-widest uppercase px-7 py-3"
+                className="btn-brutal font-mono text-[13px] tracking-widest uppercase px-7 py-3"
               >
                 Let's Talk
               </button>
@@ -173,7 +173,7 @@ export function Hero() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={label}
-                  className="flex items-center gap-1.5 text-muted-foreground hover:text-accent transition-colors duration-200 font-mono text-[9px] uppercase tracking-widest"
+                  className="flex items-center gap-1.5 text-muted-foreground hover:text-accent transition-colors duration-200 font-mono text-[12px] uppercase tracking-widest"
                 >
                   {icon}
                   <span className="hidden sm:inline">{label}</span>
@@ -221,7 +221,7 @@ export function Hero() {
           className="absolute bottom-8 right-8 md:right-16 flex flex-col items-center gap-2 bg-transparent border-none group"
           aria-label="Scroll down"
         >
-          <span className="font-mono text-[8px] uppercase tracking-[0.3em] text-muted-foreground/40 group-hover:text-accent transition-colors [writing-mode:vertical-rl]">
+          <span className="font-mono text-[11px] uppercase tracking-[0.3em] text-muted-foreground/40 group-hover:text-accent transition-colors [writing-mode:vertical-rl]">
             Scroll
           </span>
           <ArrowDown className="h-3.5 w-3.5 text-muted-foreground/40 group-hover:text-accent animate-bounce transition-colors" />

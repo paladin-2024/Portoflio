@@ -72,7 +72,7 @@ export function Services() {
               SERVICES.
             </span>
             <div className="relative z-10">
-              <p className="font-mono text-[10px] uppercase tracking-[0.35em] text-muted-foreground mb-3">
+              <p className="font-mono text-[13px] uppercase tracking-[0.35em] text-muted-foreground mb-3">
                 What I Offer
               </p>
               <h2
@@ -109,7 +109,7 @@ export function Services() {
               >
                 {/* Top row */}
                 <div className="flex items-start justify-between mb-8">
-                  <span className="font-mono text-[9px] text-muted-foreground group-hover:text-background/40 transition-colors">
+                  <span className="font-mono text-[12px] text-muted-foreground group-hover:text-background/40 transition-colors">
                     {svc.num}
                   </span>
                   <div className="flex items-center gap-3">
@@ -134,7 +134,7 @@ export function Services() {
                   {svc.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="font-mono text-[9px] uppercase tracking-wider px-2.5 py-1 border border-border group-hover:border-background/20 text-muted-foreground group-hover:text-background/50 transition-colors"
+                      className="font-mono text-[12px] uppercase tracking-wider px-2.5 py-1 border border-border group-hover:border-background/20 text-muted-foreground group-hover:text-background/50 transition-colors"
                     >
                       {tag}
                     </span>

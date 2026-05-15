@@ -35,7 +35,7 @@ export function Footer() {
                 key={link.label}
                 href={link.href}
                 onClick={(e) => { e.preventDefault(); scrollTo(link.href); }}
-                className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors"
+                className="font-mono text-[13px] uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors"
               >
                 {link.label}
               </a>
@@ -58,10 +58,10 @@ export function Footer() {
         <div className="h-px bg-border mb-6" />
 
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="font-mono text-[10px] text-muted-foreground">
+          <p className="font-mono text-[13px] text-muted-foreground">
             © {year} IKUZO NZABANITA Caleb. All rights reserved.
           </p>
-          <p className="font-mono text-[10px] text-muted-foreground">
+          <p className="font-mono text-[13px] text-muted-foreground">
             Designed & Built by Nzabanita Caleb · Kampala, Uganda
           </p>
         </div>

@@ -55,7 +55,7 @@ export function Testimonials() {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            className="font-mono text-[10px] uppercase tracking-[0.35em] text-background/40 mb-3 relative z-10"
+            className="font-mono text-[13px] uppercase tracking-[0.35em] text-background/40 mb-3 relative z-10"
           >
             Social Proof
           </motion.p>
@@ -91,7 +91,7 @@ export function Testimonials() {
               >
                 {s.value}
               </span>
-              <span className="font-mono text-[9px] uppercase tracking-wider text-background/40 whitespace-pre-line leading-relaxed">
+              <span className="font-mono text-[12px] uppercase tracking-wider text-background/40 whitespace-pre-line leading-relaxed">
                 {s.label}
               </span>
             </motion.div>
@@ -123,7 +123,7 @@ export function Testimonials() {
                   </div>
                   <div>
                     <p className="font-syne font-bold text-background text-sm">{t.role}</p>
-                    <p className="font-mono text-[9px] uppercase tracking-wider text-accent">{t.company}</p>
+                    <p className="font-mono text-[12px] uppercase tracking-wider text-accent">{t.company}</p>
                   </div>
                 </div>
                 <span className="text-accent text-xs tracking-widest">★★★★★</span>

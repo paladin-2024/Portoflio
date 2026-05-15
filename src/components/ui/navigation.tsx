@@ -87,7 +87,7 @@ export function Navigation() {
             }
           </button>
           <span
-            className="font-mono text-[8px] text-muted-foreground/40 tracking-widest select-none"
+            className="font-mono text-[11px] text-muted-foreground/40 tracking-widest select-none"
             style={{ writingMode: 'vertical-rl' }}
           >
             2026
@@ -148,7 +148,7 @@ export function Navigation() {
               >
                 {theme === 'dark' ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
               </button>
-              <span className="font-mono text-[9px] uppercase tracking-widest text-muted-foreground/40">
+              <span className="font-mono text-[12px] uppercase tracking-widest text-muted-foreground/40">
                 2026
               </span>
             </div>

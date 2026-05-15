@@ -81,11 +81,11 @@ export function About() {
             {/* Ubuntu tag under photo */}
             <div className="flex items-center gap-2 mt-4">
               <Terminal className="h-3 w-3 text-accent" />
-              <span className="font-mono text-[9px] uppercase tracking-widest text-muted-foreground">
+              <span className="font-mono text-[12px] uppercase tracking-widest text-muted-foreground">
                 Daily driver: Ubuntu 24.04 LTS
               </span>
             </div>
-            <p className="font-mono text-[9px] uppercase tracking-widest text-muted-foreground/50 mt-1 ml-5">
+            <p className="font-mono text-[12px] uppercase tracking-widest text-muted-foreground/50 mt-1 ml-5">
               Kampala, Uganda · 2026
             </p>
           </motion.div>
@@ -97,7 +97,7 @@ export function About() {
             viewport={{ once: true }}
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           >
-            <p className="font-mono text-[10px] uppercase tracking-[0.35em] text-muted-foreground mb-4">
+            <p className="font-mono text-[13px] uppercase tracking-[0.35em] text-muted-foreground mb-4">
               Who I Am
             </p>
             <h2
@@ -123,7 +123,7 @@ export function About() {
               {descriptors.map((d) => (
                 <span
                   key={d}
-                  className={`font-mono text-[9px] uppercase tracking-wider px-3 py-1.5 border transition-colors duration-200 ${
+                  className={`font-mono text-[12px] uppercase tracking-wider px-3 py-1.5 border transition-colors duration-200 ${
                     d === 'Linux / Ubuntu'
                       ? 'border-accent text-accent bg-accent/5'
                       : 'border-border text-muted-foreground hover:border-accent hover:text-foreground'
@@ -148,12 +148,12 @@ export function About() {
                   variants={fadeUp}
                   className="flex gap-6 py-4 border-t border-border last:border-b group hover:bg-foreground/3 dark:hover:bg-white/3 transition-colors px-2 -mx-2"
                 >
-                  <span className="font-mono text-[10px] text-muted-foreground/40 shrink-0 pt-0.5">
+                  <span className="font-mono text-[13px] text-muted-foreground/40 shrink-0 pt-0.5">
                     {entry.year}
                   </span>
                   <div>
                     <p className="font-syne font-bold text-foreground text-sm group-hover:text-accent transition-colors">{entry.title}</p>
-                    <p className="font-mono text-[10px] text-muted-foreground mt-0.5">{entry.company}</p>
+                    <p className="font-mono text-[13px] text-muted-foreground mt-0.5">{entry.company}</p>
                   </div>
                 </motion.div>
               ))}
@@ -161,7 +161,7 @@ export function About() {
 
             {/* CV button */}
             <a href="/cv/nzabanita-caleb-cv.pdf" download>
-              <Button variant="outline" size="lg" className="gap-2 font-mono text-[10px] uppercase tracking-widest ubuntu-glow">
+              <Button variant="outline" size="lg" className="gap-2 font-mono text-[13px] uppercase tracking-widest ubuntu-glow">
                 <Download className="h-4 w-4" />
                 Download CV
               </Button>

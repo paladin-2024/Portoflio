@@ -117,7 +117,7 @@ export function Projects() {
             WORK.
           </span>
           <div className="relative z-10">
-            <p className="font-mono text-[10px] uppercase tracking-[0.35em] text-muted-foreground mb-3">
+            <p className="font-mono text-[13px] uppercase tracking-[0.35em] text-muted-foreground mb-3">
               My Work
             </p>
             <h2
@@ -173,7 +173,7 @@ export function Projects() {
               />
               {/* View details overlay */}
               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/50 transition-colors duration-300 flex items-center justify-center">
-                <span className="font-mono text-[9px] uppercase tracking-widest text-black bg-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 px-3 py-1.5">
+                <span className="font-mono text-[12px] uppercase tracking-widest text-black bg-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 px-3 py-1.5">
                   View Details
                 </span>
               </div>
@@ -181,7 +181,7 @@ export function Projects() {
 
             {/* Minimal content */}
             <div className="flex flex-col flex-1 p-5">
-              <p className="font-mono text-[8px] text-muted-foreground tracking-[0.2em] mb-2">{project.num}</p>
+              <p className="font-mono text-[11px] text-muted-foreground tracking-[0.2em] mb-2">{project.num}</p>
               <h3 className="font-syne font-bold text-foreground text-base mb-3">{project.title}</h3>
               <p className="text-xs text-muted-foreground leading-relaxed mb-4 flex-1">{project.shortDesc}</p>
               <div className="flex flex-wrap gap-1">
@@ -208,14 +208,14 @@ export function Projects() {
           className="shrink-0 flex flex-col items-center justify-center bg-card border border-dashed border-border/50"
           style={{ width: 'clamp(180px, 20vw, 240px)', scrollSnapAlign: 'start' }}
         >
-          <p className="font-mono text-[9px] uppercase tracking-widest text-muted-foreground/50 mb-3 text-center px-6">
+          <p className="font-mono text-[12px] uppercase tracking-widest text-muted-foreground/50 mb-3 text-center px-6">
             More work on GitHub
           </p>
           <a
             href="https://github.com/paladin-2024"
             target="_blank"
             rel="noopener noreferrer"
-            className="font-mono text-[9px] uppercase tracking-wider text-accent hover:underline"
+            className="font-mono text-[12px] uppercase tracking-wider text-accent hover:underline"
             onClick={(e) => e.stopPropagation()}
           >
             paladin-2024 →
@@ -224,7 +224,7 @@ export function Projects() {
       </div>
 
       {/* Scroll hint */}
-      <p className="font-mono text-[8px] uppercase tracking-widest text-muted-foreground/30 text-center mt-4">
+      <p className="font-mono text-[11px] uppercase tracking-widest text-muted-foreground/30 text-center mt-4">
         click a project · drag to explore
       </p>
 
@@ -267,7 +267,7 @@ export function Projects() {
                   className="w-full h-full object-cover object-top"
                 />
                 {selected.featured && (
-                  <span className="absolute top-4 left-4 font-mono text-[8px] uppercase tracking-widest bg-accent text-white px-2.5 py-1">
+                  <span className="absolute top-4 left-4 font-mono text-[11px] uppercase tracking-widest bg-accent text-white px-2.5 py-1">
                     Featured
                   </span>
                 )}
@@ -275,20 +275,20 @@ export function Projects() {
 
               {/* Content */}
               <div className="p-8">
-                <p className="font-mono text-[8px] text-muted-foreground tracking-[0.25em] mb-2">{selected.num}</p>
+                <p className="font-mono text-[11px] text-muted-foreground tracking-[0.25em] mb-2">{selected.num}</p>
                 <h3
                   className="font-syne font-extrabold text-foreground mb-2"
                   style={{ fontSize: 'clamp(1.5rem, 3vw, 2rem)', lineHeight: 1 }}
                 >
                   {selected.title}
                 </h3>
-                <p className="font-mono text-[10px] text-accent uppercase tracking-wider mb-6">{selected.metric}</p>
+                <p className="font-mono text-[13px] text-accent uppercase tracking-wider mb-6">{selected.metric}</p>
 
                 <p className="text-sm text-muted-foreground leading-relaxed mb-8">{selected.desc}</p>
 
                 {/* Highlights */}
                 <div className="mb-8">
-                  <p className="font-mono text-[9px] uppercase tracking-wider text-muted-foreground/50 mb-3">Highlights</p>
+                  <p className="font-mono text-[12px] uppercase tracking-wider text-muted-foreground/50 mb-3">Highlights</p>
                   <ul className="space-y-2">
                     {selected.highlights.map((h) => (
                       <li key={h} className="flex items-start gap-2 text-sm text-muted-foreground">
@@ -304,7 +304,7 @@ export function Projects() {
                   {selected.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="font-mono text-[8px] uppercase tracking-wider px-2 py-1 border border-border text-muted-foreground"
+                      className="font-mono text-[11px] uppercase tracking-wider px-2 py-1 border border-border text-muted-foreground"
                     >
                       {tag}
                     </span>
@@ -317,7 +317,7 @@ export function Projects() {
                     href={selected.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-wider text-foreground hover:text-accent transition-colors border border-border px-4 py-2.5 hover:border-accent"
+                    className="inline-flex items-center gap-2 font-mono text-[13px] uppercase tracking-wider text-foreground hover:text-accent transition-colors border border-border px-4 py-2.5 hover:border-accent"
                   >
                     Visit Live Site <ExternalLink className="h-3 w-3" />
                   </a>
