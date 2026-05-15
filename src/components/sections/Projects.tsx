@@ -172,8 +172,8 @@ export function Projects() {
                 draggable={false}
               />
               {/* View details overlay */}
-              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors duration-300 flex items-center justify-center">
-                <span className="font-mono text-[9px] uppercase tracking-widest text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 px-3 py-1.5 border border-white/40">
+              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/50 transition-colors duration-300 flex items-center justify-center">
+                <span className="font-mono text-[9px] uppercase tracking-widest text-black bg-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 px-3 py-1.5">
                   View Details
                 </span>
               </div>
