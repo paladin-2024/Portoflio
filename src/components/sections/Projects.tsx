@@ -257,7 +257,8 @@ export function Projects() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 32, scale: 0.97 }}
               transition={{ duration: 0.4, ease: easeOut }}
-              className="fixed z-[201] inset-x-4 md:inset-x-auto md:w-[660px] md:left-1/2 md:-translate-x-1/2 top-[5vh] bottom-[5vh] overflow-y-auto bg-card border border-border"
+              className="fixed z-[201] inset-x-4 md:inset-x-auto md:w-[660px] md:left-1/2 md:-translate-x-1/2 top-[5vh] bottom-[5vh] overflow-y-auto border border-border shadow-2xl"
+              style={{ background: 'var(--background)', opacity: 1 }}
             >
               {/* Close */}
               <button
