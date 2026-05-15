@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Download, Terminal } from 'lucide-react';
 import { Button } from '../ui/button';
@@ -9,42 +9,36 @@ import { fadeUp, stagger } from '../../lib/animations';
 gsap.registerPlugin(ScrollTrigger);
 
 const timeline = [
-  { year: '2026', title: 'Software Engineer',       company: 'Freelance, Kampala, Uganda' },
-  { year: '2025', title: 'Software Engineering',    company: 'University Studies' },
-  { year: '2024', title: 'Web & Backend Dev',       company: 'Self-taught & Open Source' },
-  { year: '2023', title: 'Started Coding',          company: 'The Journey Begins' },
+  { year: '2026', title: 'Software Engineer',    company: 'Freelance, Kampala, Uganda' },
+  { year: '2025', title: 'Software Engineering', company: 'University Studies' },
+  { year: '2024', title: 'Web & Backend Dev',    company: 'Self-taught & Open Source' },
+  { year: '2023', title: 'Started Coding',       company: 'The Journey Begins' },
 ];
 
 const descriptors = [
-  'Backend Dev',
-  'AI Enthusiast',
-  'ML Explorer',
-  'Robotics Builder',
-  'Car Enthusiast',
-  'Linux / Ubuntu',
-  'Open Source',
+  'Backend Dev', 'AI Enthusiast', 'ML Explorer',
+  'Robotics Builder', 'Car Enthusiast', 'Linux / Ubuntu', 'Open Source',
 ];
 
 export function About() {
-  const imgRef = useRef<HTMLImageElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
+  const [cursor, setCursor] = useState<{ x: number; y: number } | null>(null);
 
   useEffect(() => {
-    const img = imgRef.current;
     const h = headingRef.current;
-    if (!img || !h) return;
-
-    const tImg = ScrollTrigger.create({ trigger: img, start: 'top 75%', once: true,
-      onEnter: () => gsap.fromTo(img, { filter: 'grayscale(1) contrast(1.1)' }, { filter: 'grayscale(0) contrast(1)', duration: 1.2, ease: 'power2.out' }) });
+    if (!h) return;
     const tH = ScrollTrigger.create({ trigger: h, start: 'top 85%', once: true,
       onEnter: () => gsap.fromTo(h, { clipPath: 'inset(100% 0 0 0)' }, { clipPath: 'inset(0% 0 0 0)', duration: 0.9, ease: 'power3.out' }) });
-
-    return () => { tImg.kill(); tH.kill(); };
+    return () => tH.kill();
   }, []);
+
+  function onMouseMove(e: React.MouseEvent<HTMLDivElement>) {
+    const rect = e.currentTarget.getBoundingClientRect();
+    setCursor({ x: e.clientX - rect.left, y: e.clientY - rect.top });
+  }
 
   return (
     <section id="about" className="py-24 bg-background overflow-x-hidden">
-      {/* Top rule */}
       <div className="h-px bg-border mb-24 mx-6 md:mx-16" />
 
       <div className="container mx-auto px-6 md:px-16 max-w-[1600px]">
@@ -58,24 +52,59 @@ export function About() {
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
             className="relative"
           >
-            <div className="relative overflow-hidden aspect-[3/4] max-w-sm border border-border">
+            {/* Photo container — stacked b&w + color reveal */}
+            <div
+              className="relative overflow-hidden aspect-[3/4] max-w-sm border border-border cursor-crosshair"
+              onMouseMove={onMouseMove}
+              onMouseLeave={() => setCursor(null)}
+            >
+              {/* Layer 1: full color (base) */}
               <img
-                ref={imgRef}
                 src="/assets/profile.jpg"
                 alt="Nzabanita Caleb"
-                className="w-full h-full object-cover"
-                style={{ filter: 'grayscale(1) contrast(1.1)' }}
+                className="absolute inset-0 w-full h-full object-cover"
+                draggable={false}
               />
+
+              {/* Layer 2: grayscale — masked away at cursor position to reveal color */}
+              <img
+                src="/assets/profile.jpg"
+                alt=""
+                aria-hidden="true"
+                draggable={false}
+                className="absolute inset-0 w-full h-full object-cover"
+                style={{
+                  filter: 'grayscale(1) contrast(1.08)',
+                  WebkitMaskImage: cursor
+                    ? `radial-gradient(circle 90px at ${cursor.x}px ${cursor.y}px, transparent 0%, transparent 40%, black 100%)`
+                    : 'none',
+                  maskImage: cursor
+                    ? `radial-gradient(circle 90px at ${cursor.x}px ${cursor.y}px, transparent 0%, transparent 40%, black 100%)`
+                    : 'none',
+                }}
+              />
+
               {/* Grain overlay */}
               <div
-                className="absolute inset-0 opacity-25 mix-blend-overlay pointer-events-none"
+                className="absolute inset-0 opacity-20 mix-blend-overlay pointer-events-none"
                 style={{
                   backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
                   backgroundSize: '128px',
                 }}
               />
+
               {/* Orange corner accent */}
-              <div className="absolute bottom-0 left-0 w-12 h-1 bg-accent" />
+              <div className="absolute bottom-0 left-0 w-12 h-1 bg-accent pointer-events-none" />
+
+              {/* Hint label — fades out when cursor enters */}
+              <div
+                className="absolute bottom-4 right-4 pointer-events-none transition-opacity duration-300"
+                style={{ opacity: cursor ? 0 : 1 }}
+              >
+                <span className="font-mono text-[10px] uppercase tracking-widest text-white/60 bg-black/40 px-2 py-1">
+                  hover to reveal
+                </span>
+              </div>
             </div>
 
             {/* Ubuntu tag under photo */}
